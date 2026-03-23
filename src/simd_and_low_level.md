@@ -1,33 +1,37 @@
 # SIMD intrinsics, hashing, and low-level extras
 
-This chapter ties together **`Part10-TheEnd`**, **`IntrinsicXOR`**, and **`FreeEXE`**—all **optional** and **more advanced** than the core 1–9 track.
+This chapter is **optional** and **more advanced** than the core track. Topics include **SSE-style** hashing of wide strings, **SIMD XOR** of buffers, and (if assigned) **shellcode** or **raw bytes** embedded in C—only in environments your instructor authorizes.
 
-> [!warning]
-> These examples use **SSE/AVX intrinsics** (`immintrin.h`, `emmintrin.h`, etc.). You need a CPU and compiler flags that support the instruction set you use, and you must understand **alignment and aliasing** before copying patterns into security-sensitive code.
+> [!WARNING]
+> These examples use **SSE/AVX intrinsics** (`immintrin.h`, `emmintrin.h`, etc.). You need CPU + compiler support for the instruction set you use, and you must understand **alignment** and **strict aliasing** before using intrinsics in real code.
 
-## `Part10-TheEnd`: XOR-fold hash with SSE
+## XOR-fold hash with SSE (wide string)
 
-**`IntrinsichHasher`** loads 8 wide characters at a time into **`__m128i`**, XORs into an accumulator, then folds the 128-bit state into a **`DWORD`**. Remaining characters are XOR’d in a scalar loop. **`start`** builds a **`UNICODE_STRING`** for **`KERNELBASE.dll`** from a **wide character array** (not a single literal) to illustrate byte-level control.
+Pattern:
 
-**Project:** `IntroToC/Part10-TheEnd`.
+1. Initialize **`__m128i hash`** to zero.
+2. For each 8-**WCHAR** chunk (16 bytes), **`_mm_loadu_si128`**, **`_mm_xor_si128`** into **`hash`**.
+3. **`_mm_storeu_si128`** to a **`DWORD[4]`**, XOR the four lanes into one **`DWORD`**.
+4. XOR remaining **`WCHAR`s** in a scalar loop.
 
-## `IntrinsicXOR`: encrypting a buffer in 16-byte blocks
+Build a **`UNICODE_STRING`** for a module name using a **wide char array** if you need per-character control (e.g. `'K','E',...,'L','L', UNICODE_NULL`).
 
-**`IntrinsicXOR/main.c`** allocates a buffer, XORs **`PlainText`** against a 16-byte key using **`_mm_loadu_si128`** / **`_mm_xor_si128`**, and prints hex bytes—useful for seeing how intrinsics map to **`xmm`** registers in a debugger.
+## `IntrinsicXOR`: 16-byte blocks
 
-**Project:** `IntroToC/IntrinsicXOR`.
+Load a 16-byte **key** into **`__m128i`**. For each full block of plaintext: **`_mm_loadu_si128`**, **`_mm_xor_si128`**, **`_mm_storeu_si128`**. Handle a **tail** smaller than 16 bytes with a byte loop. Print ciphertext as **hex** for debugging.
 
-## `FreeEXE`: shellcode as a byte array
+## Shellcode / `hexData` arrays (assigned only)
 
-**`FreeEXE/main.c`** contains large **`unsigned char hexData[...]`** arrays (and comments) representing extracted machine code—**PEB walking** and hashing at a very low level. Treat this as **reference / lab support**, not as a template for arbitrary networked programs.
+Some courses embed **machine code** as **`unsigned char hexData[] = { 0x48, ... };** and jump into it or study it in a debugger. That belongs only in **controlled** lab VMs.
 
-> [!caution]
-> Running or adapting **shellcode** and **process-memory tricks** can violate policy or law outside a controlled class VM. Only use this material in environments your instructor explicitly authorizes.
+> [!CAUTION]
+> Running or adapting **shellcode** and low-level **process memory** tricks can violate policy or law outside an authorized class environment. Follow your instructor’s rules only.
 
-**Project:** `IntroToC/FreeEXE`.
+## Placeholder milestones
 
-## `Part10` stub
+If your template includes a stub function (e.g. a single **`boo()`**), replace it when the rubric advances—or use it as a scratch entry point for **intrinsic** experiments.
 
-**`Part10/main.c`** currently defines a trivial **`boo`** function—placeholder for future extension. **`Needle/main.c`** is mostly commented **010 Editor** hex dumps; skim if your course points you there.
+## Implement
 
-**Projects:** `IntroToC/Part10`, `IntroToC/Needle`.
+1. Only if assigned: add **SIMD** hashing and/or **XOR** demo **`.c`** files to **your template**, enable required **compiler intrinsics** flags.
+2. **Build**, run under a debugger if asked, **commit**, and **push**.

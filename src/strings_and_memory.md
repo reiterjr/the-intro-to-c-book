@@ -1,13 +1,13 @@
 # Strings, `strlen`, and memory helpers
 
-This chapter follows **`IntroToC/Part2`**: C strings, `string.h`, and a few macros used throughout the course.
+This chapter covers C strings, `<string.h>`, and simple **macros** for flag tests that reappear when you work with PE flags and file attributes later.
 
 ## `strlen` vs `sizeof`
 
 - **`strlen`** counts characters **until** the null terminator; it does **not** include `'\0'`.
 - **`sizeof`** on a fixed array includes the **whole array**, including the null byte if the initializer provided one.
 
-From **`Part2/main.c`**:
+Example:
 
 ```c
 CHAR bad[10] = {0};
@@ -32,7 +32,7 @@ CHAR* command = "cmd.exe";   /* pointer; sizeof(command) is pointer size */
 
 ## `strcmp` and `atoi`
 
-`strcmp` returns **0** when strings are equal. The project prints comparisons with a ternary for readability:
+`strcmp` returns **0** when strings are equal:
 
 ```c
 printf("is k32 == kbase? -> %i : %s \n", strcmp(k32, kbase),
@@ -43,6 +43,19 @@ printf("is k32 == kbase? -> %i : %s \n", strcmp(k32, kbase),
 
 ## Macros: flags and page constants
 
-**`Part2`** defines macros such as `FlagOn`, `SetFlag`, `ClearFlag`, and constants like `PAGE_EXECUTE_READ`. You will see the same **flag-testing** style again when working with PE characteristics and file attributes in later parts.
+Define helpers such as:
 
-**Project:** `IntroToC/Part2`.
+```c
+#define FlagOn(Flags, TheFlag)   (((Flags) & (TheFlag)))
+#define SetFlag(Flags, TheFlag)  ((Flags) |= (TheFlag))
+#define ClearFlag(Flags, TheFlag) ((Flags) &= ~(TheFlag))
+```
+
+…and constants like `PAGE_EXECUTE_READ` when your chapter or rubric references executable memory flags. You will reuse **flag-testing** style when parsing PE **Characteristics** and **`WIN32_FIND_DATA`** attributes.
+
+## Implement
+
+1. Add a **`.c`** file (or use your template’s `main`) that exercises **`strlen`**, **`sizeof`**, **`memcpy`**, truncation, **`strcmp`**, and **`atoi`** as shown (or as your instructor specifies).
+2. Add any **macros** your rubric requires to a **`.h`** file and include it where needed.
+3. **Build**, run, and confirm output.
+4. **Commit** and **push**.

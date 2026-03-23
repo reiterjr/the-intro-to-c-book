@@ -1,35 +1,51 @@
 # HTTP with WinINet
 
-This chapter follows **`IntroToC/Part9`**: a minimal **HTTP GET** using **WinINet** (`wininet.dll`), with error text from **`FormatMessageW`**.
+This chapter covers a minimal **HTTP GET** using **WinINet** (`wininet.dll`), plus readable errors via **`FormatMessageW`** pulling messages from **`wininet.dll`**.
+
+Link **`Wininet.lib`** and include **`Wininet.h`**.
 
 ## Flow in `main`
 
-1. **`InitSession`** — `InternetOpenA` with a browser-like user agent and **`INTERNET_OPEN_TYPE_PRECONFIG`** (respects system proxy settings).
-2. **`MakeRequest`** — `InternetConnectA` + `HttpOpenRequestA` (see **`HttpApis.c`** for full sequence).
-3. **`SendRequest`** — sends the request; on failure **`CheckLastInetError`** prints a message.
-4. **`ProcessResults`** — reads the response (implementation in **`HttpApis.c`**).
-5. **`CloseSession`** — `InternetCloseHandle`.
+Typical sequence:
+
+1. **`InitSession`** — `InternetOpenA` with a user agent and **`INTERNET_OPEN_TYPE_PRECONFIG`**.
+2. **`MakeRequest`** — `InternetConnectA`, then `HttpOpenRequestA` (and related) to obtain an **`HINTERNET`** request handle.
+3. **`SendRequest`** — send headers/body; on failure, call your error helper.
+4. **`ProcessResults`** — `InternetReadFile` (or similar) in a loop until done.
+5. **`CloseSession`** — `InternetCloseHandle` for each open handle (request, connection, session).
+
+Split these across **`.c`** files in **your template** (`HttpApis.c`, `Errors.c`, etc.) if your rubric asks for separation—**the book describes the pattern**; your repo holds the actual file names.
 
 ## Formatting WinINet errors
 
-**`Part9/Errors.c`** uses **`FormatMessageW`** with **`FORMAT_MESSAGE_FROM_HMODULE`** and **`GetModuleHandleW(L"wininet.dll")`** so error codes map to human-readable strings:
-
 ```c
-FormatMessageW(
-    FORMAT_MESSAGE_FROM_HMODULE,
-    GetModuleHandleW(L"wininet.dll"),
-    dwLastErr,
-    0UL,
-    szFormatBuffer,
-    BUFFER_SIZE,
-    NULL
-);
+#define BUFFER_SIZE 1024
+
+void CheckLastInetError(LPCWSTR message, DWORD dwLastErr)
+{
+    WCHAR buf[BUFFER_SIZE];
+    DWORD n = FormatMessageW(
+        FORMAT_MESSAGE_FROM_HMODULE,
+        GetModuleHandleW(L"wininet.dll"),
+        dwLastErr,
+        0UL,
+        buf,
+        BUFFER_SIZE,
+        NULL
+    );
+    if (n)
+        wprintf(L"%s: %s", message, buf);
+}
 ```
 
-> [!tip]
-> Always distinguish **Win32 errors** (`GetLastError` after some APIs) from **HRESULT**-style returns. WinINet commonly sets extended error info; your debugger and `FormatMessage` are your friends.
+> [!TIP]
+> Distinguish **Win32** errors from **`InternetError`** / extended WinINet codes your debugger shows—always thread **`GetLastError`** (or the API’s documented error path) into **`FormatMessage`** with the right module when possible.
 
-> [!note]
-> The sample targets **`127.0.0.1:8080`**. You need a listening HTTP server on that port, or change **`theTarget`** / **`thePort`** to match your lab environment.
+> [!NOTE]
+> Samples often target **`127.0.0.1:8080`**. Run a local listener or change **host** / **port** to match your lab.
 
-**Project:** `IntroToC/Part9`.
+## Implement
+
+1. Add **WinINet** session/connect/request/send/read/close in **your template**.
+2. Wire **`CheckLastInetError`** (or equivalent) for failed steps.
+3. **Build**, test against a real or mock server, **commit**, and **push**.
