@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-54dc45ff.js";
+            window.path_to_searchindex_js = "searchindex-c60e4496.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-0150a509.js"></script>
+        <script src="toc-632dde0e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,34 +175,42 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="structs-unicode_string-and-doubly-linked-lists"><a class="header" href="#structs-unicode_string-and-doubly-linked-lists">Structs, <code>UNICODE_STRING</code>, and doubly linked lists</a></h1>
-<p>This chapter follows <strong><code>IntroToC/Part4</code></strong>: defining Windows-style structs, using designated initializers, allocating from the process heap, and linking nodes with <strong><code>LIST_ENTRY</code></strong>.</p>
-<h2 id="struct-types-in-this-lab"><a class="header" href="#struct-types-in-this-lab">Struct types in this lab</a></h2>
-<p><strong><code>Part4/main.c</code></strong> defines (or typedefs) shapes similar to kernel patterns:</p>
+<p>This chapter covers Windows-style <strong>structs</strong>, <strong>designated initializers</strong>, allocation from the <strong>process heap</strong>, and linking records with <strong><code>LIST_ENTRY</code></strong> (doubly linked list), the same abstraction the loader uses for modules.</p>
+<h2 id="struct-types-to-model"><a class="header" href="#struct-types-to-model">Struct types to model</a></h2>
+<p>Define types similar to kernel patterns (names may vary; match your rubric):</p>
 <ul>
 <li><strong><code>UNICODE_STRING</code></strong> — <code>Length</code>, <code>MaximumLength</code>, <code>Buffer</code>.</li>
-<li><strong><code>STRING_EX</code></strong> — narrow or wide buffer depending on <code>UNICODE</code>.</li>
-<li><strong><code>PROCESS_INFO_EX</code></strong> — example process record embedding a <strong><code>LIST_ENTRY</code></strong> (<code>ProcessInfoLinks</code>) and a <strong><code>UNICODE_STRING</code> name</strong>.</li>
+<li><strong><code>STRING_EX</code></strong> (optional) — narrow or wide buffer depending on whether you compile with <strong><code>UNICODE</code></strong>.</li>
+<li>A record (e.g. <strong><code>PROCESS_INFO_EX</code></strong>) that embeds a <strong><code>LIST_ENTRY</code></strong> (e.g. <code>ProcessInfoLinks</code>) plus a module or process <strong>name</strong>.</li>
 </ul>
 <h2 id="initializing-structs"><a class="header" href="#initializing-structs">Initializing structs</a></h2>
-<p>Examples include zeroing with <code>{ 0 }</code>, <code>RtlSecureZeroMemory</code>, designated initializers in C:</p>
-<pre><code class="language-c">STRING_EX Name4 = { .Buffer = s, .MaximumLength = sizeof(s), .Length = sizeof(s) - sizeof((s)[0]) };
+<p>Examples:</p>
+<pre><code class="language-c">STRING_EX Name2 = { 0 };
+RtlSecureZeroMemory(&amp;Name3, sizeof(STRING_EX));
+
+STRING_EX Name4 = { .Buffer = s, .MaximumLength = sizeof(s), .Length = sizeof(s) - sizeof((s)[0]) };
 </code></pre>
-<p>and the <code>RTL_CONSTANT_STRING</code>-style macro for string literals.</p>
+<p>Use an <strong><code>RTL_CONSTANT_STRING</code>-style macro</strong> for string literals if your instructor provides or asks you to write one.</p>
 <h2 id="heap-allocation-and-list-operations"><a class="header" href="#heap-allocation-and-list-operations">Heap allocation and list operations</a></h2>
-<p>The lab allocates a <strong><code>LIST_ENTRY</code></strong> head with <strong><code>HeapAlloc</code></strong> / <strong><code>GetProcessHeap</code></strong>, checks for failure, then:</p>
+<p>Allocate a <strong>list head</strong> with <strong><code>HeapAlloc</code></strong> / <strong><code>GetProcessHeap</code></strong>, check for <strong><code>NULL</code></strong>, then:</p>
 <pre><code class="language-c">InitializeListHead(TempHeadList);
 bIsEmpty = IsListEmpty(TempHeadList);
 </code></pre>
-<p>A <strong><code>PROCESS_INFO_EX</code></strong> is allocated, partially filled (including a <strong><code>UNICODE_STRING</code></strong> built with <code>RTL_CONSTANT_STRING</code>), and inserted:</p>
+<p>Allocate a <strong>node struct</strong>, fill fields (including a <strong><code>UNICODE_STRING</code></strong> from <code>RTL_CONSTANT_STRING</code> or manual setup), then insert:</p>
 <pre><code class="language-c">InsertTailList(TempHeadList, &amp;(pProcInfo-&gt;ProcessInfoLinks));
 </code></pre>
-<h2 id="listhelpersh"><a class="header" href="#listhelpersh"><code>ListHelpers.h</code></a></h2>
-<p><strong><code>Part4/ListHelpers.h</code></strong> provides <strong><code>InitializeListHead</code></strong>, <strong><code>IsListEmpty</code></strong>, <strong><code>InsertTailList</code></strong>, <strong><code>RemoveEntryList</code></strong>, etc.—the same logical operations used by the Windows loader’s module lists (you will walk those lists in later parts).</p>
+<h2 id="list-helper-routines"><a class="header" href="#list-helper-routines">List helper routines</a></h2>
+<p>You need <strong><code>InitializeListHead</code></strong>, <strong><code>IsListEmpty</code></strong>, <strong><code>InsertTailList</code></strong>, <strong><code>RemoveEntryList</code></strong>, and related routines—the same operations the Windows loader uses for module lists. Your <strong>template</strong> may already ship <strong><code>ListHelpers.h</code></strong>; if not, implement these <strong>FORCEINLINE</strong>-style functions in your own header (match the classic doubly linked list algorithms).</p>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p><strong><code>DumpStruct</code></strong> in the project uses a <code>printf</code> format that depends on your CRT/SDK setup (<code>%wZ</code>-style extension). If your build warns or fails, compare your toolset documentation or temporarily print <code>Buffer</code> manually while learning the list mechanics.</p>
+<p>Printing a <strong><code>UNICODE_STRING</code></strong> with <strong><code>printf</code></strong> may require a vendor-specific format (e.g. <code>%wZ</code>) or manual loops over <strong><code>Buffer</code></strong>. If your build complains, print <strong><code>Length</code></strong> / <strong><code>Buffer</code></strong> in a simple loop for debugging.</p>
 </blockquote>
-<p><strong>Project:</strong> <code>IntroToC/Part4</code>.</p>
+<h2 id="implement"><a class="header" href="#implement">Implement</a></h2>
+<ol>
+<li>Add the <strong>struct</strong> definitions and <strong>list helpers</strong> to headers/sources in <strong>your template</strong>.</li>
+<li>In <strong><code>main</code></strong>, allocate head + at least one node, <strong>insert</strong>, and verify <strong><code>IsListEmpty</code></strong> toggles as expected.</li>
+<li><strong>Build</strong>, run, <strong>commit</strong>, and <strong>push</strong>.</li>
+</ol>
 
                     </main>
 

@@ -1,6 +1,6 @@
 # Pointers and addresses
 
-This chapter matches **`IntroToC/Part3`**: taking addresses, dereferencing, pointer sizes, and how pointer arithmetic depends on the **pointed-to type**.
+This chapter covers taking addresses, dereferencing, pointer sizes, and how pointer arithmetic depends on the **pointed-to type**. It ends with **parallel arrays** of names and function pointers—a simplified picture of an **export table**.
 
 ## Address-of and dereference
 
@@ -8,10 +8,10 @@ This chapter matches **`IntroToC/Part3`**: taking addresses, dereferencing, poin
 ULONG ulCourse = 670UL;
 PULONG pCourse = &ulCourse;
 
-printf("1-address of ulCourse 0x%p \n", &ulCourse);
-printf("2-address of ulCourse 0x%p \n", pCourse);
-printf("3-address of pCourse 0x%p \n", &pCourse);
-printf("4-dereference pCourse 0x%08x \n", *pCourse);
+printf("1-address of ulCourse 0x%p \n", (void*)&ulCourse);
+printf("2-address of ulCourse 0x%p \n", (void*)pCourse);
+printf("3-address of pCourse 0x%p \n", (void*)&pCourse);
+printf("4-dereference pCourse 0x%08lx \n", (unsigned long)*pCourse);
 
 *pCourse = 665;
 ```
@@ -31,13 +31,13 @@ On a given platform, **all data pointers** are typically the same width (e.g. 8 
 
 ## Pointer arithmetic and `CHAR` vs `WORD` vs `ULONG`
 
-The same underlying bytes (a string `"yoda"`) are walked with different pointer types; **incrementing** advances by `sizeof(*p)`:
+The same underlying bytes (e.g. a string `"yoda"`) can be walked with different pointer types; **incrementing** advances by `sizeof(*p)`:
 
 - `PCHAR` / `LPSTR`: +1 byte  
 - `PWORD`: +2 bytes  
 - `PULONG`: +4 bytes  
 
-Then a simple loop walks a C string byte-by-byte:
+Then walk a C string byte-by-byte:
 
 ```c
 PCHAR p = jediMaster;
@@ -48,11 +48,30 @@ while ('\0' != *p)
 }
 ```
 
-> [!warning]
-> Casting a `PCHAR` to `PULONG` or `PWORD` and then incrementing is **unsafe** unless you know the buffer is large enough and aligned for that access. The lab uses it to illustrate **sizes and arithmetic**, not as a pattern for production string code.
+> [!WARNING]
+> Casting a `PCHAR` to `PULONG` or `PWORD` and then incrementing is **unsafe** unless you know the buffer is large enough and aligned for that access. This exercise illustrates **sizes and arithmetic**, not production string code.
 
 ## Parallel arrays (names and function pointers)
 
-**`Part3`** ends with arrays of names and `PVOID` function pointers, then searches by name with `strcmp`—a simplified picture of how an **export table** pairs names with addresses.
+Finish with arrays of **names** and **`PVOID`** (or typed) **function pointers**, then find an index with **`strcmp`**—the same logical shape as **names / ordinals / functions** in a PE export directory.
 
-**Project:** `IntroToC/Part3`.
+```c
+/* Example shape only—adjust types and count for your rubric */
+#define COUNTOF_NAMES 4
+PCHAR AddressOfNames[COUNTOF_NAMES] = { "MyA", "MyB", "MyC", "MyD" };
+PVOID AddressOfFunctions[COUNTOF_NAMES] = { /* &MyA, &MyB, ... */ };
+
+for (ULONG i = 0UL; i < COUNTOF_NAMES; i++)
+{
+    if (0 == strcmp("MyC", AddressOfNames[i]))
+    {
+        printf("found at index %lu @ %p \n", i, AddressOfFunctions[i]);
+    }
+}
+```
+
+## Implement
+
+1. In **your template**, implement the pointer demos, the **unsafe** multi-type walk only if your rubric requires it, and the **parallel-array** lookup with real stub functions.
+2. **Build** and run.
+3. **Commit** and **push**.

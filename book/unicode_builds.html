@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-54dc45ff.js";
+            window.path_to_searchindex_js = "searchindex-c60e4496.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-0150a509.js"></script>
+        <script src="toc-632dde0e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,7 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="unicode-vs-ansi-builds"><a class="header" href="#unicode-vs-ansi-builds">Unicode vs ANSI builds</a></h1>
-<p>This short chapter matches <strong><code>IntroToC/Part11</code></strong>: how the <strong><code>UNICODE</code></strong> / <strong><code>_UNICODE</code></strong> macros change which <strong><code>printf</code></strong> family you use.</p>
+<p>This short chapter explains how <strong><code>UNICODE</code></strong> / <strong><code>_UNICODE</code></strong> affect which <strong><code>printf</code></strong> family you use—and how easy it is to mix wide and narrow APIs by mistake.</p>
 <h2 id="one-macro-two-personalities"><a class="header" href="#one-macro-two-personalities">One macro, two personalities</a></h2>
 <pre><code class="language-c">#ifdef _UNICODE
 #define print wprintf
@@ -183,24 +183,25 @@
 #define print printf
 #endif
 
-int main()
+int main(void)
 {
-    print(L"this is a cool \n");
+    print(L"this is a cool \n");  /* BUG if _UNICODE is not defined: printf + wide literal */
     return 0;
 }
 </code></pre>
-<p>When <strong><code>_UNICODE</code></strong> is defined, <strong><code>print</code></strong> becomes <strong><code>wprintf</code></strong> and the wide literal <strong><code>L"..."</code></strong> is consistent. When it is <strong>not</strong> defined, <strong><code>print</code></strong> is <strong><code>printf</code></strong>, but the <strong><code>L</code> prefix</strong> on the string is still a <strong>wide</strong> string—so the narrow and wide worlds are accidentally mixed in this stub.</p>
+<p>When <strong><code>_UNICODE</code></strong> is defined, <strong><code>print</code></strong> becomes <strong><code>wprintf</code></strong> and the wide literal <strong><code>L"..."</code></strong> is consistent. When it is <strong>not</strong> defined, <strong><code>print</code></strong> is <strong><code>printf</code></strong> but the string is still <strong>wide</strong>—that is a <strong>bug</strong>.</p>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Do not mix</strong> wide string literals with <strong><code>printf</code></strong>, or narrow literals with <strong><code>wprintf</code></strong>, without explicit conversion. Enable <strong><code>UNICODE</code></strong> consistently in your project settings and includes, or standardize on <strong><code>printf</code> + UTF-8</strong> / <strong><code>wprintf</code> + wide</strong> deliberately.</p>
+<p><strong>Do not mix</strong> wide string literals with <strong><code>printf</code></strong>, or narrow literals with <strong><code>wprintf</code></strong>, without explicit conversion. Pick <strong>one</strong> story for your template: <strong>A</strong> narrow (<code>CHAR</code>, <code>printf</code>, <code>*A</code> APIs) or <strong>B</strong> wide (<code>wchar_t</code>, <code>wprintf</code>, <code>*W</code> APIs, <code>UNICODE_STRING</code>).</p>
 </blockquote>
-<h2 id="why-this-matters-in-the-course"><a class="header" href="#why-this-matters-in-the-course">Why this matters in the course</a></h2>
-<p>Earlier parts use <strong><code>CHAR</code></strong>, <strong><code>printf</code></strong>, <strong><code>FindFirstFileA</code></strong>, and wide APIs like <strong><code>wprintf</code></strong> / <strong><code>UNICODE_STRING</code></strong> side by side for teaching. For your own code, pick a strategy:</p>
-<ul>
-<li><strong>A (ANSI / UTF-8 narrow):</strong> <code>char</code>, <code>printf</code>, <code>CreateFileA</code>, etc.</li>
-<li><strong>B (Unicode wide):</strong> <code>wchar_t</code>, <code>wprintf</code>, <code>CreateFileW</code>, <code>UNICODE_STRING</code>, etc.</li>
-</ul>
-<p><strong>Project:</strong> <code>IntroToC/Part11</code>.</p>
+<h2 id="why-this-matters"><a class="header" href="#why-this-matters">Why this matters</a></h2>
+<p>Later topics use <strong><code>CHAR</code></strong> and <strong><code>FindFirstFileA</code></strong> alongside <strong><code>UNICODE_STRING</code></strong> and wide system types. Your <strong>project properties</strong> and <strong><code>#ifdef UNICODE</code></strong> blocks should match—avoid “half Unicode” builds.</p>
+<h2 id="implement"><a class="header" href="#implement">Implement</a></h2>
+<ol>
+<li>Align <strong>your template</strong> with your instructor’s required configuration (ANSI vs Unicode).</li>
+<li>Fix or remove any <strong><code>print</code></strong> macro that mixes families incorrectly.</li>
+<li><strong>Build</strong>, verify, <strong>commit</strong>, and <strong>push</strong>.</li>
+</ol>
 
                     </main>
 

@@ -1,41 +1,49 @@
 # Locating modules by name or hash and reading PE headers
 
-This chapter centers on **`IntroToC/Part6`** (and the closely related **`Part7`**, which exercises the same APIs). The goal is to find a loaded module’s base address from the **PEB module list**, then interpret **PE** structures in memory.
+This chapter covers finding a loaded module’s **base address** from the **PEB module list**, then parsing **PE** structures in memory (DOS header, NT headers, optional header, export directory).
 
-## `FindSystemModule` parameters
+## `FindSystemModule`-style API
 
-**`FindSystemModule`** accepts optional **`UNICODE_STRING`** and/or **`ULONG` hash** pointers:
+Design a function (name it as your rubric says) that accepts optional **`UNICODE_STRING*`** and/or **`ULONG*`** hash:
 
-- If **name is NULL**, a **hash must** be supplied (`ERROR_INVALID_PARAMETER` otherwise).
-- The implementation sets **`bHashOnly`** and calls **`GetModuleBase`**.
+- If **name is NULL**, a **hash must** be supplied; otherwise return **`ERROR_INVALID_PARAMETER`** (or equivalent).
+- Set an internal **`bHashOnly`** flag and call into **`GetModuleBase`**.
 
 ## `GetModuleBase` and the loader lock
 
-**`GetModuleBase`**:
+**`GetModuleBase`** should:
 
-1. Calls **`GetPebPtr`** (via `__readgsqword` / TEB) to get the PEB.
+1. Resolve the **PEB** (e.g. **`GetPebPtr`** using `__readgsqword` / TEB).
 2. **`EnterCriticalSection(PebPtr->LoaderLock)`** before reading loader lists.
-3. Walks **`InMemoryOrderModuleList`**, comparing either:
+3. Walk **`InMemoryOrderModuleList`**, comparing either:
    - **`BaseNameHashValue`** to the supplied hash (`RtlCompareMemory`), or  
-   - **`_wcsicmp`** on full buffer strings when matching by name.
-4. **`LeaveCriticalSection`** when done.
+   - **`_wcsicmp`** on wide name buffers when matching by name.
+4. **`LeaveCriticalSection`** on **every** path.
 
-> [!important]
-> Always release the loader lock on **all** exit paths. If you add early `return`s while debugging, ensure you don’t accidentally skip **`LeaveCriticalSection`**—that can **deadlock** the process.
+> [!IMPORTANT]
+> Always release the loader lock on **all** exit paths. Early **`return`s** during debugging must not skip **`LeaveCriticalSection`** or you can **deadlock** the process.
 
 ## PE parsing overview (in-memory)
 
-After a base address is found, the code:
+After you have **`ModuleBase`**:
 
-- Validates **`IMAGE_DOS_SIGNATURE`** at the base (**DOS header**).
-- Uses **`e_lfanew`** to locate the **NT headers**.
-- Reads the **file header** and **optional header** (32 vs 64 depends on **machine** type).
-- Locates the **export directory** via **`IMAGE_DIRECTORY_ENTRY_EXPORT`** and **`RVA2VA`** style macros.
+- Validate **`IMAGE_DOS_SIGNATURE`** at the base (**DOS header**).
+- Use **`e_lfanew`** to locate the **NT headers**.
+- Read the **file header** and **optional header** (32 vs 64 depends on **Machine**).
+- Locate the **export directory** via **`IMAGE_DIRECTORY_ENTRY_EXPORT`** and convert **RVAs** to **VAs** with a macro such as:
 
-**`DumpExports`**, **`DumpDosHeader`**, **`DumpFileHeader`**, etc., print pieces of this structure. Linking **`imagehlp.lib`** and including **ImageHlp** supports helpers like **`ImageRvaToVa`** / symbol utilities where used.
+```c
+#define RVA2VA(Type, Base, Rva) ((Type)((DWORD_PTR)(Base) + (DWORD_PTR)(Rva)))
+```
 
-## Part6 vs Part7
+Add **`DumpDosHeader`**, **`DumpFileHeader`**, **`DumpExports`** (or similar) as separate functions that print fields you care about. Link **`imagehlp.lib`** if you use **ImageHlp** helpers (**`ImageRvaToVa`**, etc.).
 
-**`Part7`** largely repeats the **`FindSystemModule`** / hash workflow with small variations—use it to confirm you understand the flow without treating the two as different topics.
+## Second pass (optional reinforcement)
 
-**Projects:** `IntroToC/Part6`, `IntroToC/Part7`.
+If your course assigns a **second milestone** with the same APIs (e.g. hash-only lookup vs name lookup), treat it as **practice**—same lock rules, same PE steps—rather than a different codebase.
+
+## Implement
+
+1. Implement **lookup by name** and/or **by hash** per rubric.
+2. Parse and print **DOS** + **file** headers (and **exports** if required).
+3. **Build x64**, test against a known module (e.g. `KERNELBASE.dll`), **commit**, and **push**.

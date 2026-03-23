@@ -1,45 +1,52 @@
 # Structs, `UNICODE_STRING`, and doubly linked lists
 
-This chapter follows **`IntroToC/Part4`**: defining Windows-style structs, using designated initializers, allocating from the process heap, and linking nodes with **`LIST_ENTRY`**.
+This chapter covers Windows-style **structs**, **designated initializers**, allocation from the **process heap**, and linking records with **`LIST_ENTRY`** (doubly linked list), the same abstraction the loader uses for modules.
 
-## Struct types in this lab
+## Struct types to model
 
-**`Part4/main.c`** defines (or typedefs) shapes similar to kernel patterns:
+Define types similar to kernel patterns (names may vary; match your rubric):
 
 - **`UNICODE_STRING`** — `Length`, `MaximumLength`, `Buffer`.
-- **`STRING_EX`** — narrow or wide buffer depending on `UNICODE`.
-- **`PROCESS_INFO_EX`** — example process record embedding a **`LIST_ENTRY`** (`ProcessInfoLinks`) and a **`UNICODE_STRING` name**.
+- **`STRING_EX`** (optional) — narrow or wide buffer depending on whether you compile with **`UNICODE`**.
+- A record (e.g. **`PROCESS_INFO_EX`**) that embeds a **`LIST_ENTRY`** (e.g. `ProcessInfoLinks`) plus a module or process **name**.
 
 ## Initializing structs
 
-Examples include zeroing with `{ 0 }`, `RtlSecureZeroMemory`, designated initializers in C:
+Examples:
 
 ```c
+STRING_EX Name2 = { 0 };
+RtlSecureZeroMemory(&Name3, sizeof(STRING_EX));
+
 STRING_EX Name4 = { .Buffer = s, .MaximumLength = sizeof(s), .Length = sizeof(s) - sizeof((s)[0]) };
 ```
 
-and the `RTL_CONSTANT_STRING`-style macro for string literals.
+Use an **`RTL_CONSTANT_STRING`-style macro** for string literals if your instructor provides or asks you to write one.
 
 ## Heap allocation and list operations
 
-The lab allocates a **`LIST_ENTRY`** head with **`HeapAlloc`** / **`GetProcessHeap`**, checks for failure, then:
+Allocate a **list head** with **`HeapAlloc`** / **`GetProcessHeap`**, check for **`NULL`**, then:
 
 ```c
 InitializeListHead(TempHeadList);
 bIsEmpty = IsListEmpty(TempHeadList);
 ```
 
-A **`PROCESS_INFO_EX`** is allocated, partially filled (including a **`UNICODE_STRING`** built with `RTL_CONSTANT_STRING`), and inserted:
+Allocate a **node struct**, fill fields (including a **`UNICODE_STRING`** from `RTL_CONSTANT_STRING` or manual setup), then insert:
 
 ```c
 InsertTailList(TempHeadList, &(pProcInfo->ProcessInfoLinks));
 ```
 
-## `ListHelpers.h`
+## List helper routines
 
-**`Part4/ListHelpers.h`** provides **`InitializeListHead`**, **`IsListEmpty`**, **`InsertTailList`**, **`RemoveEntryList`**, etc.—the same logical operations used by the Windows loader’s module lists (you will walk those lists in later parts).
+You need **`InitializeListHead`**, **`IsListEmpty`**, **`InsertTailList`**, **`RemoveEntryList`**, and related routines—the same operations the Windows loader uses for module lists. Your **template** may already ship **`ListHelpers.h`**; if not, implement these **FORCEINLINE**-style functions in your own header (match the classic doubly linked list algorithms).
 
-> [!note]
-> **`DumpStruct`** in the project uses a `printf` format that depends on your CRT/SDK setup (`%wZ`-style extension). If your build warns or fails, compare your toolset documentation or temporarily print `Buffer` manually while learning the list mechanics.
+> [!NOTE]
+> Printing a **`UNICODE_STRING`** with **`printf`** may require a vendor-specific format (e.g. `%wZ`) or manual loops over **`Buffer`**. If your build complains, print **`Length`** / **`Buffer`** in a simple loop for debugging.
 
-**Project:** `IntroToC/Part4`.
+## Implement
+
+1. Add the **struct** definitions and **list helpers** to headers/sources in **your template**.
+2. In **`main`**, allocate head + at least one node, **insert**, and verify **`IsListEmpty`** toggles as expected.
+3. **Build**, run, **commit**, and **push**.
