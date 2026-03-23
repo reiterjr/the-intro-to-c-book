@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - Intro to C</title>
-        <base href="/">
+        <title>Strings, strlen, and memory helpers - Intro to C</title>
 
 
         <!-- Custom HTML head -->
@@ -175,14 +174,48 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="strings-strlen-and-memory-helpers"><a class="header" href="#strings-strlen-and-memory-helpers">Strings, <code>strlen</code>, and memory helpers</a></h1>
+<p>This chapter follows <strong><code>IntroToC/Part2</code></strong>: C strings, <code>string.h</code>, and a few macros used throughout the course.</p>
+<h2 id="strlen-vs-sizeof"><a class="header" href="#strlen-vs-sizeof"><code>strlen</code> vs <code>sizeof</code></a></h2>
+<ul>
+<li><strong><code>strlen</code></strong> counts characters <strong>until</strong> the null terminator; it does <strong>not</strong> include <code>'\0'</code>.</li>
+<li><strong><code>sizeof</code></strong> on a fixed array includes the <strong>whole array</strong>, including the null byte if the initializer provided one.</li>
+</ul>
+<p>From <strong><code>Part2/main.c</code></strong>:</p>
+<pre><code class="language-c">CHAR bad[10] = {0};
+SIZE_T badLen = strlen(bad);   /* 0 */
+
+memcpy(bad, "bad", strlen("bad") + 1);  /* copy includes '\0' */
+</code></pre>
+<p>Truncating a string in place:</p>
+<pre><code class="language-c">CHAR cmd[] = "cmd.exe";
+cmd[3] = '\0';   /* now prints as "cmd" */
+</code></pre>
+<h2 id="array-vs-pointer-to-string-literal"><a class="header" href="#array-vs-pointer-to-string-literal">Array vs pointer to string literal</a></h2>
+<pre><code class="language-c">CHAR cmd[] = "cmd.exe";      /* array; sizeof(cmd) is size of array */
+CHAR* command = "cmd.exe";   /* pointer; sizeof(command) is pointer size */
+</code></pre>
+<h2 id="strcmp-and-atoi"><a class="header" href="#strcmp-and-atoi"><code>strcmp</code> and <code>atoi</code></a></h2>
+<p><code>strcmp</code> returns <strong>0</strong> when strings are equal. The project prints comparisons with a ternary for readability:</p>
+<pre><code class="language-c">printf("is k32 == kbase? -&gt; %i : %s \n", strcmp(k32, kbase),
+    strcmp(k32, kbase) == 0 ? "yes" : "no");
+</code></pre>
+<p><code>atoi</code> converts a decimal string to <code>int</code> (use with care in production; no strong error reporting).</p>
+<h2 id="macros-flags-and-page-constants"><a class="header" href="#macros-flags-and-page-constants">Macros: flags and page constants</a></h2>
+<p><strong><code>Part2</code></strong> defines macros such as <code>FlagOn</code>, <code>SetFlag</code>, <code>ClearFlag</code>, and constants like <code>PAGE_EXECUTE_READ</code>. You will see the same <strong>flag-testing</strong> style again when working with PE characteristics and file attributes in later parts.</p>
+<p><strong>Project:</strong> <code>IntroToC/Part2</code>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="windows_types_and_printf.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
+                            <a rel="next prefetch" href="pointers.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -190,7 +223,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="windows_types_and_printf.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
+                    <a rel="next prefetch" href="pointers.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
             </nav>
 
         </div>

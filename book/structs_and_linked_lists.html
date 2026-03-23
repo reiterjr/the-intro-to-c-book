@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - Intro to C</title>
-        <base href="/">
+        <title>Structs, UNICODE_STRING, and doubly linked lists - Intro to C</title>
 
 
         <!-- Custom HTML head -->
@@ -175,14 +174,47 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="structs-unicode_string-and-doubly-linked-lists"><a class="header" href="#structs-unicode_string-and-doubly-linked-lists">Structs, <code>UNICODE_STRING</code>, and doubly linked lists</a></h1>
+<p>This chapter follows <strong><code>IntroToC/Part4</code></strong>: defining Windows-style structs, using designated initializers, allocating from the process heap, and linking nodes with <strong><code>LIST_ENTRY</code></strong>.</p>
+<h2 id="struct-types-in-this-lab"><a class="header" href="#struct-types-in-this-lab">Struct types in this lab</a></h2>
+<p><strong><code>Part4/main.c</code></strong> defines (or typedefs) shapes similar to kernel patterns:</p>
+<ul>
+<li><strong><code>UNICODE_STRING</code></strong> — <code>Length</code>, <code>MaximumLength</code>, <code>Buffer</code>.</li>
+<li><strong><code>STRING_EX</code></strong> — narrow or wide buffer depending on <code>UNICODE</code>.</li>
+<li><strong><code>PROCESS_INFO_EX</code></strong> — example process record embedding a <strong><code>LIST_ENTRY</code></strong> (<code>ProcessInfoLinks</code>) and a <strong><code>UNICODE_STRING</code> name</strong>.</li>
+</ul>
+<h2 id="initializing-structs"><a class="header" href="#initializing-structs">Initializing structs</a></h2>
+<p>Examples include zeroing with <code>{ 0 }</code>, <code>RtlSecureZeroMemory</code>, designated initializers in C:</p>
+<pre><code class="language-c">STRING_EX Name4 = { .Buffer = s, .MaximumLength = sizeof(s), .Length = sizeof(s) - sizeof((s)[0]) };
+</code></pre>
+<p>and the <code>RTL_CONSTANT_STRING</code>-style macro for string literals.</p>
+<h2 id="heap-allocation-and-list-operations"><a class="header" href="#heap-allocation-and-list-operations">Heap allocation and list operations</a></h2>
+<p>The lab allocates a <strong><code>LIST_ENTRY</code></strong> head with <strong><code>HeapAlloc</code></strong> / <strong><code>GetProcessHeap</code></strong>, checks for failure, then:</p>
+<pre><code class="language-c">InitializeListHead(TempHeadList);
+bIsEmpty = IsListEmpty(TempHeadList);
+</code></pre>
+<p>A <strong><code>PROCESS_INFO_EX</code></strong> is allocated, partially filled (including a <strong><code>UNICODE_STRING</code></strong> built with <code>RTL_CONSTANT_STRING</code>), and inserted:</p>
+<pre><code class="language-c">InsertTailList(TempHeadList, &amp;(pProcInfo-&gt;ProcessInfoLinks));
+</code></pre>
+<h2 id="listhelpersh"><a class="header" href="#listhelpersh"><code>ListHelpers.h</code></a></h2>
+<p><strong><code>Part4/ListHelpers.h</code></strong> provides <strong><code>InitializeListHead</code></strong>, <strong><code>IsListEmpty</code></strong>, <strong><code>InsertTailList</code></strong>, <strong><code>RemoveEntryList</code></strong>, etc.—the same logical operations used by the Windows loader’s module lists (you will walk those lists in later parts).</p>
+<blockquote class="blockquote-tag blockquote-tag-note">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p><strong><code>DumpStruct</code></strong> in the project uses a <code>printf</code> format that depends on your CRT/SDK setup (<code>%wZ</code>-style extension). If your build warns or fails, compare your toolset documentation or temporarily print <code>Buffer</code> manually while learning the list mechanics.</p>
+</blockquote>
+<p><strong>Project:</strong> <code>IntroToC/Part4</code>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="pointers.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
+                            <a rel="next prefetch" href="peb_and_loader.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -190,7 +222,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="pointers.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
+                    <a rel="next prefetch" href="peb_and_loader.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
             </nav>
 
         </div>

@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - Intro to C</title>
-        <base href="/">
+        <title>SIMD intrinsics, hashing, and low-level extras - Intro to C</title>
 
 
         <!-- Custom HTML head -->
@@ -175,14 +174,40 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="simd-intrinsics-hashing-and-low-level-extras"><a class="header" href="#simd-intrinsics-hashing-and-low-level-extras">SIMD intrinsics, hashing, and low-level extras</a></h1>
+<p>This chapter ties together <strong><code>Part10-TheEnd</code></strong>, <strong><code>IntrinsicXOR</code></strong>, and <strong><code>FreeEXE</code></strong>—all <strong>optional</strong> and <strong>more advanced</strong> than the core 1–9 track.</p>
+<blockquote class="blockquote-tag blockquote-tag-warning">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p>These examples use <strong>SSE/AVX intrinsics</strong> (<code>immintrin.h</code>, <code>emmintrin.h</code>, etc.). You need a CPU and compiler flags that support the instruction set you use, and you must understand <strong>alignment and aliasing</strong> before copying patterns into security-sensitive code.</p>
+</blockquote>
+<h2 id="part10-theend-xor-fold-hash-with-sse"><a class="header" href="#part10-theend-xor-fold-hash-with-sse"><code>Part10-TheEnd</code>: XOR-fold hash with SSE</a></h2>
+<p><strong><code>IntrinsichHasher</code></strong> loads 8 wide characters at a time into <strong><code>__m128i</code></strong>, XORs into an accumulator, then folds the 128-bit state into a <strong><code>DWORD</code></strong>. Remaining characters are XOR’d in a scalar loop. <strong><code>start</code></strong> builds a <strong><code>UNICODE_STRING</code></strong> for <strong><code>KERNELBASE.dll</code></strong> from a <strong>wide character array</strong> (not a single literal) to illustrate byte-level control.</p>
+<p><strong>Project:</strong> <code>IntroToC/Part10-TheEnd</code>.</p>
+<h2 id="intrinsicxor-encrypting-a-buffer-in-16-byte-blocks"><a class="header" href="#intrinsicxor-encrypting-a-buffer-in-16-byte-blocks"><code>IntrinsicXOR</code>: encrypting a buffer in 16-byte blocks</a></h2>
+<p><strong><code>IntrinsicXOR/main.c</code></strong> allocates a buffer, XORs <strong><code>PlainText</code></strong> against a 16-byte key using <strong><code>_mm_loadu_si128</code></strong> / <strong><code>_mm_xor_si128</code></strong>, and prints hex bytes—useful for seeing how intrinsics map to <strong><code>xmm</code></strong> registers in a debugger.</p>
+<p><strong>Project:</strong> <code>IntroToC/IntrinsicXOR</code>.</p>
+<h2 id="freeexe-shellcode-as-a-byte-array"><a class="header" href="#freeexe-shellcode-as-a-byte-array"><code>FreeEXE</code>: shellcode as a byte array</a></h2>
+<p><strong><code>FreeEXE/main.c</code></strong> contains large <strong><code>unsigned char hexData[...]</code></strong> arrays (and comments) representing extracted machine code—<strong>PEB walking</strong> and hashing at a very low level. Treat this as <strong>reference / lab support</strong>, not as a template for arbitrary networked programs.</p>
+<blockquote class="blockquote-tag blockquote-tag-caution">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Caution</p>
+<p>Running or adapting <strong>shellcode</strong> and <strong>process-memory tricks</strong> can violate policy or law outside a controlled class VM. Only use this material in environments your instructor explicitly authorizes.</p>
+</blockquote>
+<p><strong>Project:</strong> <code>IntroToC/FreeEXE</code>.</p>
+<h2 id="part10-stub"><a class="header" href="#part10-stub"><code>Part10</code> stub</a></h2>
+<p><strong><code>Part10/main.c</code></strong> currently defines a trivial <strong><code>boo</code></strong> function—placeholder for future extension. <strong><code>Needle/main.c</code></strong> is mostly commented <strong>010 Editor</strong> hex dumps; skim if your course points you there.</p>
+<p><strong>Projects:</strong> <code>IntroToC/Part10</code>, <code>IntroToC/Needle</code>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="unicode_builds.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
+                            <a rel="next prefetch" href="crt_free_dll.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -190,7 +215,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="unicode_builds.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
+                    <a rel="next prefetch" href="crt_free_dll.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
             </nav>
 
         </div>
