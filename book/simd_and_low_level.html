@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-54dc45ff.js";
+            window.path_to_searchindex_js = "searchindex-c60e4496.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-0150a509.js"></script>
+        <script src="toc-632dde0e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,27 +175,35 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="simd-intrinsics-hashing-and-low-level-extras"><a class="header" href="#simd-intrinsics-hashing-and-low-level-extras">SIMD intrinsics, hashing, and low-level extras</a></h1>
-<p>This chapter ties together <strong><code>Part10-TheEnd</code></strong>, <strong><code>IntrinsicXOR</code></strong>, and <strong><code>FreeEXE</code></strong>—all <strong>optional</strong> and <strong>more advanced</strong> than the core 1–9 track.</p>
+<p>This chapter is <strong>optional</strong> and <strong>more advanced</strong> than the core track. Topics include <strong>SSE-style</strong> hashing of wide strings, <strong>SIMD XOR</strong> of buffers, and (if assigned) <strong>shellcode</strong> or <strong>raw bytes</strong> embedded in C—only in environments your instructor authorizes.</p>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p>These examples use <strong>SSE/AVX intrinsics</strong> (<code>immintrin.h</code>, <code>emmintrin.h</code>, etc.). You need a CPU and compiler flags that support the instruction set you use, and you must understand <strong>alignment and aliasing</strong> before copying patterns into security-sensitive code.</p>
+<p>These examples use <strong>SSE/AVX intrinsics</strong> (<code>immintrin.h</code>, <code>emmintrin.h</code>, etc.). You need CPU + compiler support for the instruction set you use, and you must understand <strong>alignment</strong> and <strong>strict aliasing</strong> before using intrinsics in real code.</p>
 </blockquote>
-<h2 id="part10-theend-xor-fold-hash-with-sse"><a class="header" href="#part10-theend-xor-fold-hash-with-sse"><code>Part10-TheEnd</code>: XOR-fold hash with SSE</a></h2>
-<p><strong><code>IntrinsichHasher</code></strong> loads 8 wide characters at a time into <strong><code>__m128i</code></strong>, XORs into an accumulator, then folds the 128-bit state into a <strong><code>DWORD</code></strong>. Remaining characters are XOR’d in a scalar loop. <strong><code>start</code></strong> builds a <strong><code>UNICODE_STRING</code></strong> for <strong><code>KERNELBASE.dll</code></strong> from a <strong>wide character array</strong> (not a single literal) to illustrate byte-level control.</p>
-<p><strong>Project:</strong> <code>IntroToC/Part10-TheEnd</code>.</p>
-<h2 id="intrinsicxor-encrypting-a-buffer-in-16-byte-blocks"><a class="header" href="#intrinsicxor-encrypting-a-buffer-in-16-byte-blocks"><code>IntrinsicXOR</code>: encrypting a buffer in 16-byte blocks</a></h2>
-<p><strong><code>IntrinsicXOR/main.c</code></strong> allocates a buffer, XORs <strong><code>PlainText</code></strong> against a 16-byte key using <strong><code>_mm_loadu_si128</code></strong> / <strong><code>_mm_xor_si128</code></strong>, and prints hex bytes—useful for seeing how intrinsics map to <strong><code>xmm</code></strong> registers in a debugger.</p>
-<p><strong>Project:</strong> <code>IntroToC/IntrinsicXOR</code>.</p>
-<h2 id="freeexe-shellcode-as-a-byte-array"><a class="header" href="#freeexe-shellcode-as-a-byte-array"><code>FreeEXE</code>: shellcode as a byte array</a></h2>
-<p><strong><code>FreeEXE/main.c</code></strong> contains large <strong><code>unsigned char hexData[...]</code></strong> arrays (and comments) representing extracted machine code—<strong>PEB walking</strong> and hashing at a very low level. Treat this as <strong>reference / lab support</strong>, not as a template for arbitrary networked programs.</p>
+<h2 id="xor-fold-hash-with-sse-wide-string"><a class="header" href="#xor-fold-hash-with-sse-wide-string">XOR-fold hash with SSE (wide string)</a></h2>
+<p>Pattern:</p>
+<ol>
+<li>Initialize <strong><code>__m128i hash</code></strong> to zero.</li>
+<li>For each 8-<strong>WCHAR</strong> chunk (16 bytes), <strong><code>_mm_loadu_si128</code></strong>, <strong><code>_mm_xor_si128</code></strong> into <strong><code>hash</code></strong>.</li>
+<li><strong><code>_mm_storeu_si128</code></strong> to a <strong><code>DWORD[4]</code></strong>, XOR the four lanes into one <strong><code>DWORD</code></strong>.</li>
+<li>XOR remaining <strong><code>WCHAR</code>s</strong> in a scalar loop.</li>
+</ol>
+<p>Build a <strong><code>UNICODE_STRING</code></strong> for a module name using a <strong>wide char array</strong> if you need per-character control (e.g. <code>'K','E',...,'L','L', UNICODE_NULL</code>).</p>
+<h2 id="intrinsicxor-16-byte-blocks"><a class="header" href="#intrinsicxor-16-byte-blocks"><code>IntrinsicXOR</code>: 16-byte blocks</a></h2>
+<p>Load a 16-byte <strong>key</strong> into <strong><code>__m128i</code></strong>. For each full block of plaintext: <strong><code>_mm_loadu_si128</code></strong>, <strong><code>_mm_xor_si128</code></strong>, <strong><code>_mm_storeu_si128</code></strong>. Handle a <strong>tail</strong> smaller than 16 bytes with a byte loop. Print ciphertext as <strong>hex</strong> for debugging.</p>
+<h2 id="shellcode--hexdata-arrays-assigned-only"><a class="header" href="#shellcode--hexdata-arrays-assigned-only">Shellcode / <code>hexData</code> arrays (assigned only)</a></h2>
+<p>Some courses embed <strong>machine code</strong> as <strong>`unsigned char hexData[] = { 0x48, … };</strong> and jump into it or study it in a debugger. That belongs only in <strong>controlled</strong> lab VMs.</p>
 <blockquote class="blockquote-tag blockquote-tag-caution">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Caution</p>
-<p>Running or adapting <strong>shellcode</strong> and <strong>process-memory tricks</strong> can violate policy or law outside a controlled class VM. Only use this material in environments your instructor explicitly authorizes.</p>
+<p>Running or adapting <strong>shellcode</strong> and low-level <strong>process memory</strong> tricks can violate policy or law outside an authorized class environment. Follow your instructor’s rules only.</p>
 </blockquote>
-<p><strong>Project:</strong> <code>IntroToC/FreeEXE</code>.</p>
-<h2 id="part10-stub"><a class="header" href="#part10-stub"><code>Part10</code> stub</a></h2>
-<p><strong><code>Part10/main.c</code></strong> currently defines a trivial <strong><code>boo</code></strong> function—placeholder for future extension. <strong><code>Needle/main.c</code></strong> is mostly commented <strong>010 Editor</strong> hex dumps; skim if your course points you there.</p>
-<p><strong>Projects:</strong> <code>IntroToC/Part10</code>, <code>IntroToC/Needle</code>.</p>
+<h2 id="placeholder-milestones"><a class="header" href="#placeholder-milestones">Placeholder milestones</a></h2>
+<p>If your template includes a stub function (e.g. a single <strong><code>boo()</code></strong>), replace it when the rubric advances—or use it as a scratch entry point for <strong>intrinsic</strong> experiments.</p>
+<h2 id="implement"><a class="header" href="#implement">Implement</a></h2>
+<ol>
+<li>Only if assigned: add <strong>SIMD</strong> hashing and/or <strong>XOR</strong> demo <strong><code>.c</code></strong> files to <strong>your template</strong>, enable required <strong>compiler intrinsics</strong> flags.</li>
+<li><strong>Build</strong>, run under a debugger if asked, <strong>commit</strong>, and <strong>push</strong>.</li>
+</ol>
 
                     </main>
 

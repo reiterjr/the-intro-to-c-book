@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-54dc45ff.js";
+            window.path_to_searchindex_js = "searchindex-c60e4496.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-0150a509.js"></script>
+        <script src="toc-632dde0e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -176,59 +176,187 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
-<p>Welcome to <strong>Intro to C</strong> on Windows. This book accompanies the C source code in the <strong><code>IntroToC</code></strong> folder: a sequence of small Visual Studio projects (Intro, lab1, Part2–Part11, and a few optional extras). Each chapter points at the relevant project so you can read, build, and experiment.</p>
+<p>Welcome to <strong>Intro to C</strong> on Windows. This book walks through topics in order. Your <strong>actual homework</strong> lives in <strong>one</strong> GitHub Classroom repository (see below)—you start from a <strong>base template</strong> with boilerplate and grow it chapter by chapter.</p>
 <blockquote class="blockquote-tag blockquote-tag-important">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
 <p><strong>GitHub Classroom</strong></p>
 <ol>
 <li>Open the assignment: <strong><a href="https://classroom.github.com/a/6mIQr-ph">Accept the GitHub Classroom assignment</a></strong>.</li>
-<li>Sign in to GitHub if prompted, then <strong>accept</strong> the assignment so a personal repository is created for you.</li>
+<li>Sign in to GitHub if prompted, then <strong>accept</strong> the assignment so a <strong>personal repository</strong> is created for you.</li>
+<li>That repo is created from a <strong>base template</strong> project: it includes <strong>boilerplate</strong> (solution, project files, stubs, etc.) that you will <strong>keep using for the entire series</strong>.</li>
 <li>Watch for the <strong>invitation / acknowledgement email</strong> from GitHub (or your course) and complete any steps it asks for.</li>
-<li><strong>Clone your Classroom repository</strong> to your machine (HTTPS or SSH, as your instructor prefers) and open the solution or projects from there when doing homework.</li>
+<li><strong>Clone your Classroom repository</strong> to your machine (HTTPS or SSH, as your instructor prefers) and open <strong>that</strong> solution in Visual Studio for all labs.</li>
 </ol>
+</blockquote>
+<blockquote class="blockquote-tag blockquote-tag-note">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p><strong>One project, growing over time</strong></p>
+<p>As you move through the chapters, <strong>add to the same template</strong>—new files, functions, and behavior stack on what you already wrote. You do <strong>not</strong> start a fresh project each week unless your instructor says otherwise. Chapter titles (e.g. “Pointers”, “The PEB and loader”) describe <strong>what you are learning next</strong> and what to implement <strong>inside</strong> your template next.</p>
+</blockquote>
+<blockquote class="blockquote-tag blockquote-tag-tip">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p><strong>Submit work after each chapter</strong></p>
+<p>When you finish the code for a <strong>chapter</strong> (or whatever unit your instructor defines), <strong>commit</strong> your changes with a clear message (e.g. <code>Complete Ch. 4 – lists and structs</code>) and <strong>push</strong> to <strong><code>main</code></strong> (or the branch your instructor uses). That push is what signals “ready for review.” Push <strong>regularly</strong> so feedback can keep up with your progress—not only at the very end of the course.</p>
 </blockquote>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
 <p><strong>The “Feedback” pull request</strong></p>
-<p>The <strong>Feedback</strong> pull request in your repo is for the instructor to leave comments and suggestions. <strong>Do not merge or close it.</strong> Keep doing your work on <strong><code>main</code></strong> (or the branch your instructor specifies) and push regularly. New commits on <strong><code>main</code></strong> will show up for review; the Feedback PR is a conversation surface, not something to finish like a normal feature branch.</p>
+<p>The <strong>Feedback</strong> pull request in your repo is for the instructor to leave comments and suggestions. <strong>Do not merge or close it.</strong> Keep implementing in <strong>your template on <code>main</code></strong> (or the branch your instructor specifies), then <strong>commit and push</strong>; new commits on <strong><code>main</code></strong> are what get reviewed. The Feedback PR is a <strong>conversation surface</strong>, not a feature branch you complete or merge.</p>
 </blockquote>
-<h2 id="what-you-need"><a class="header" href="#what-you-need">What you need</a></h2>
+<h2 id="how-this-book-works"><a class="header" href="#how-this-book-works">How this book works</a></h2>
 <ul>
-<li><strong>Windows</strong> and <strong>Visual Studio</strong> (or another build setup that can compile Windows C projects with the Windows SDK).</li>
-<li>Many later labs use <strong>x64</strong> only: several projects use <code>__readgsqword</code> to read the TEB/PEB and will <strong>fail to compile in 32-bit (x86)</strong> configurations by design.</li>
+<li><strong>Theory and guidance</strong> are written in each chapter: what the Windows APIs and C features are doing and why it matters.</li>
+<li><strong>Code in the book</strong> is what you study and reproduce: samples are <strong>complete enough to type in or adapt</strong>; they are <strong>not</strong> a second codebase you must hunt for elsewhere.</li>
+<li><strong>Your Classroom template</strong> holds the real project: you add <code>.c</code> / <code>.h</code> files, fill in <code>main</code>, split modules as directed, and wire everything to build.</li>
+<li>At the end of each chapter, a short <strong>“Implement”</strong> section reminds you to <strong>build, test, commit, and push</strong>—the book does not assume you have a separate “solution repo” to copy from.</li>
+</ul>
+<h2 id="what-you-need"><a class="header" href="#what-you-need">What you need</a></h2>
+<blockquote class="blockquote-tag blockquote-tag-note">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p><strong>VSCode in your browser</strong></p>
+<p>An attempt has been made to enable coding from your browser or even installing the GitHub Classroom VSCode extension. However, there is no guarantee that setup will work perfectly 100% of the time. The recommendation is to use VS2022 Community locally on a Windows host or Windows VM.</p>
+</blockquote>
+<ul>
+<li><strong>Windows</strong> and <strong>Visual Studio 2022 Community</strong> (or another build setup that can compile Windows C projects with the Windows SDK).</li>
+<li>Many later labs use <strong>x64</strong> only: several topics use <code>__readgsqword</code> to read the TEB/PEB and will <strong>fail to compile in 32-bit (x86)</strong> configurations by design.</li>
 <li>Basic familiarity with a terminal, Git, and cloning/pushing to GitHub.</li>
 </ul>
 <h2 id="how-this-book-is-organized"><a class="header" href="#how-this-book-is-organized">How this book is organized</a></h2>
-<p>Chapters follow the <strong>same order as the parts</strong> in <code>IntroToC</code>, from numeric types and <code>printf</code> through pointers, structs, the module list, PE basics, threads and file search, and WinINet HTTP. Later optional material covers intrinsics and low-level patterns.</p>
-<h2 id="repository-layout-reference"><a class="header" href="#repository-layout-reference">Repository layout (reference)</a></h2>
+<p>Chapters proceed from numeric types and <code>printf</code> through pointers, structs, the module list, PE basics, threads and file search, and WinINet HTTP. Later optional material covers intrinsics and low-level patterns. The order matches how the course builds concepts—not a folder tree on disk.</p>
+<h2 id="where-things-live"><a class="header" href="#where-things-live">Where things live</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Location</th><th>Purpose</th></tr>
 </thead>
 <tbody>
-<tr><td><code>IntroToC/</code></td><td>C lab projects. This book covers <strong><code>.c</code> / <code>.h</code></strong> work only—ignore sibling folders that are clearly <strong>C++</strong> (e.g. <code>FormatArgs</code>, <code>StructsWithUnions</code>) or build output under <strong><code>x64/</code></strong> unless your instructor says otherwise.</td></tr>
-<tr><td><code>IntroToCBook/</code></td><td>This mdBook (what you are reading).</td></tr>
+<tr><td><strong>Your cloned Classroom repo</strong></td><td>The <strong>base template</strong> you accepted from GitHub Classroom—this is where you <strong>edit, commit, and push</strong> all course work.</td></tr>
+<tr><td><strong>This book (<code>IntroToCBook</code>)</strong></td><td><strong>Primary reference</strong> for explanations and code samples.</td></tr>
+<tr><td><strong><code>IntroToCBook/</code></strong> (published site or repo)</td><td>The rendered mdBook you read while coding.</td></tr>
 </tbody>
 </table>
 </div>
-<p>When instructions say “open the <strong>Part3</strong> project,” that means the folder <code>IntroToC/Part3/</code> (and its <code>.vcxproj</code> in the solution).</p>
 <h2 id="conventions"><a class="header" href="#conventions">Conventions</a></h2>
 <ul>
-<li>Snippets are shortened when helpful; the <strong>full source</strong> is always in <code>IntroToC</code>.</li>
+<li>Long samples may be <strong>abbreviated</strong> with <code>/* ... */</code> in the book; you still implement the <strong>full</strong> behavior in your template unless the chapter says otherwise.</li>
 <li>Windows types such as <code>DWORD</code>, <code>ULONG</code>, <code>PCHAR</code>, and <code>UNICODE_STRING</code> come from <strong><code>Windows.h</code></strong> and related headers.</li>
-<li><code>ERROR_SUCCESS</code> is a common “success” return for Win32-style <code>main</code> examples in this codebase.</li>
+<li><code>ERROR_SUCCESS</code> is a common “success” return for Win32-style <code>main</code> examples.</li>
 </ul>
-<p>Next chapter: <strong>Windows types, <code>main</code>, and <code>printf</code></strong> (<code>Intro</code> + <code>lab1</code>).</p>
+<p>Next chapter: <strong>Windows types</strong>—read the theory and samples, then implement them in <strong>your template</strong>, <strong>commit</strong>, and <strong>push</strong> when that stage is done.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="windows-types-main-and-printf"><a class="header" href="#windows-types-main-and-printf">Windows types, <code>main</code>, and <code>printf</code></a></h1>
-<p>This chapter aligns with <strong><code>IntroToC/Intro</code></strong> and <strong><code>IntroToC/lab1</code></strong>: building a minimal Windows C program, using Win32 typedefs, and printing values with the correct <code>printf</code> format specifiers.</p>
+<p>This chapter covers a minimal Windows C program, Win32 typedefs (<code>INT</code>, <code>UINT</code>, <code>DWORD</code>, …), and printing values with the correct <strong><code>printf</code></strong> format specifiers. Your <strong>Classroom template</strong> may already contain an empty or stub <code>main</code>—you will replace or extend it using the patterns here.</p>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p><strong><code>lab1</code> is your worksheet.</strong> The <code>lab1/main.c</code> file is mostly TODO comments. Use this chapter and <code>Intro/main.c</code> as references while you fill in <code>lab1</code>.</p>
+<p><strong>No separate “lab solution” tree</strong>—everything you need to start is in <strong>this chapter</strong> plus whatever stubs your template provides.</p>
 </blockquote>
-<h2 id="signed-vs-unsigned-and-one-printf-pitfall"><a class="header" href="#signed-vs-unsigned-and-one-printf-pitfall">Signed vs unsigned and one <code>printf</code> pitfall</a></h2>
-<p>In <strong><code>Intro/main.c</code></strong>, an <code>INT</code> is pushed past its maximum positive value by adding a <code>UINT</code>, and another <code>UINT</code> is decremented:</p>
+<h2 id="the-entry-point-main"><a class="header" href="#the-entry-point-main">The entry point: <code>main</code></a></h2>
+<p>Every C program needs a place to start. On Windows, when you build a typical <strong>console</strong> application and link the <strong>C runtime library (CRT)</strong>, the executable does <strong>not</strong> begin executing your <code>main</code> immediately: the CRT’s <strong>startup code</strong> runs first (stack, globals, security cookie work, and so on). When that setup is done, the CRT <strong>calls your <code>main</code></strong>. That is why you write a function named <strong><code>main</code></strong>: it is the <strong>contract</strong> between your code and the CRT for this kind of app.</p>
+<h3 id="function-signature"><a class="header" href="#function-signature">Function signature</a></h3>
+<p>The <strong>signature</strong> is the function’s <strong>return type</strong>, <strong>name</strong>, and <strong>parameter list</strong>—taken together, they tell the compiler how <code>main</code> can be called and what it returns.</p>
+<p>Common forms you will see:</p>
+<pre><code class="language-c">int main(void);
+
+int main(int argc, char *argv[]);
+</code></pre>
+<p>In Windows headers, <strong><code>INT</code></strong> is a typedef for a signed integer type (typically the same width as <strong><code>int</code></strong>), and <strong><code>VOID</code></strong> means “no parameters,” so you will often see:</p>
+<pre><code class="language-c">INT main(VOID)
+{
+    /* ... */
+    return 0;
+}
+</code></pre>
+<p>Your <strong>template</strong> or rubric may use <code>int</code> or <code>INT</code>; both describe the same idea when <code>INT</code> is <code>typedef</code>’d to match <code>int</code>.</p>
+<h3 id="function-body"><a class="header" href="#function-body">Function body</a></h3>
+<p>The <strong>body</strong> is the block in <code>{ ... }</code> after the signature. That is where you:</p>
+<ul>
+<li>Declare <strong>variables</strong></li>
+<li>Call <strong>functions</strong> (e.g. <code>printf</code>)</li>
+<li>Use <strong>control flow</strong> (<code>if</code>, <code>while</code>, …)</li>
+<li><strong><code>return</code></strong> a value to the caller</li>
+</ul>
+<p>For <code>main</code>, the return value is passed back through the CRT to the operating system: by convention, <strong><code>0</code></strong> means success; <strong>non-zero</strong> often signals an error (your course may standardize on <code>return 0</code> or <code>return ERROR_SUCCESS</code> from <code>Windows.h</code>).</p>
+<h3 id="why-main-and-not-something-arbitrary"><a class="header" href="#why-main-and-not-something-arbitrary">Why <code>main</code> (and not something arbitrary)?</a></h3>
+<p>The <strong>linker + CRT</strong> are built to look for a symbol with a specific name for the C <strong>console</strong> entry path—traditionally <strong><code>main</code></strong> (or <strong><code>wmain</code></strong> for wide-character argv). If you rename it to <code>start_here</code> without also changing startup objects and linker settings, the link step will fail or you will get the wrong entry point. <strong><code>WinMain</code></strong> is a <strong>different</strong> story: that is the usual entry for <strong>Windows subsystem</strong> GUI programs, with the CRT calling <strong><code>WinMain</code></strong> instead of <strong><code>main</code></strong>. For this course’s console-style labs, <strong><code>main</code></strong> is the right name.</p>
+<hr>
+<h2 id="variables-that-hold-numbers"><a class="header" href="#variables-that-hold-numbers">Variables that hold numbers</a></h2>
+<p>Before you print or combine values, you store them in <strong>variables</strong>: a name, a <strong>type</strong>, and (usually) an <strong>initial value</strong>.</p>
+<p>On Windows, <strong><code>Windows.h</code></strong> (and related headers) provide typedefs so the same names appear in sample code and in system APIs:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Typedef (typical use)</th><th>Role</th></tr>
+</thead>
+<tbody>
+<tr><td><strong><code>INT</code></strong></td><td>Signed integer (often 32-bit); good for values that can be negative.</td></tr>
+<tr><td><strong><code>UINT</code></strong></td><td>Unsigned integer; counts and bit patterns that should not be negative.</td></tr>
+<tr><td><strong><code>LONG</code></strong>, <strong><code>ULONG</code></strong></td><td>Signed / unsigned long-width integers.</td></tr>
+<tr><td><strong><code>DWORD</code></strong></td><td>Unsigned 32-bit type (“double word”); very common in Win32 APIs.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Example declarations with <strong>initializers</strong>:</p>
+<pre><code class="language-c">INT   courseNumber = 670;
+UINT  flags        = 0U;
+DWORD mask         = 0x0000FFFFUL;
+</code></pre>
+<p>The <strong>type</strong> tells the compiler how much storage to use and <strong>how to interpret the bits</strong> (especially important for <strong>signed</strong> vs <strong>unsigned</strong>). The <strong>value</strong> after <code>=</code> sets the starting contents; you can change them later with assignment (<code>=</code>, <code>+=</code>, …).</p>
+<h3 id="sizeof-how-big-is-this-type-or-variable"><a class="header" href="#sizeof-how-big-is-this-type-or-variable"><code>sizeof</code>: how big is this type or variable?</a></h3>
+<p>C provides the <strong><code>sizeof</code></strong> operator. It yields the <strong>size in bytes</strong> of a type or of an expression’s type. You use it when the <strong>correct amount of memory</strong> matters—buffers, clearing structs, or matching what an API expects—instead of hard-coding numbers like <code>4</code> that might be wrong on another platform or for another type.</p>
+<p><strong>On a type</strong> (parentheses required around the type name):</p>
+<pre><code class="language-c">size_t n = sizeof(UINT);   /* how many bytes one UINT occupies */
+</code></pre>
+<p><strong>On a variable or expression</strong> (parentheses around the variable are optional but common):</p>
+<pre><code class="language-c">DWORD mask = 0xFF00FF00UL;
+printf("mask uses %zu bytes\n", sizeof mask);
+</code></pre>
+<p><code>sizeof</code> is evaluated at <strong>compile time</strong> for normal types (not counting run-time variable <strong>values</strong>—only the <strong>type</strong>). The result has type <strong><code>size_t</code></strong>; use <strong><code>%zu</code></strong> with <code>printf</code> to print it portably.</p>
+<p><strong>Why bother?</strong></p>
+<ul>
+<li><strong>Clarity:</strong> <code>sizeof(buffer)</code> documents “all of this object,” not a magic constant.</li>
+<li><strong>Safety:</strong> If you change a variable’s type later, <code>sizeof</code> updates automatically.</li>
+<li><strong>APIs:</strong> Many functions want a <strong>size in bytes</strong>; passing <code>sizeof</code> avoids off-by-one errors when paired with the right object.</li>
+</ul>
+<blockquote class="blockquote-tag blockquote-tag-tip">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p><code>sizeof</code> does <strong>not</strong> tell you the <strong>length of a string</strong> in characters—use <strong><code>strlen</code></strong> for that. <code>sizeof(char_array)</code> includes the <strong><code>'\0'</code></strong> if the array was declared with fixed size; <code>strlen</code> does not.</p>
+</blockquote>
+<hr>
+<h2 id="how-many-bytes-overflow-and-wrapping"><a class="header" href="#how-many-bytes-overflow-and-wrapping">How many bytes? Overflow and wrapping</a></h2>
+<p>Exact <strong>byte widths</strong> are <strong>implementation-defined</strong>, but on <strong>Visual Studio / MSVC</strong> for typical <strong>Windows x64</strong> console programs, the Win32 typedefs you use early in this course are almost always <strong>32-bit (4 bytes)</strong> for integers like <strong><code>INT</code></strong>, <strong><code>UINT</code></strong>, <strong><code>DWORD</code></strong>, <strong><code>LONG</code></strong>, and <strong><code>ULONG</code></strong>. Wider types exist for 64-bit values (e.g. <strong><code>LONG64</code></strong>, <strong><code>ULONG64</code></strong>, <strong><code>DWORD64</code></strong>) and are <strong>8 bytes</strong>.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Idea</th><th>Typical size (MSVC, x64 labs in this course)</th></tr>
+</thead>
+<tbody>
+<tr><td><strong><code>CHAR</code></strong></td><td>1 byte</td></tr>
+<tr><td><strong><code>SHORT</code> / <code>USHORT</code></strong></td><td>2 bytes</td></tr>
+<tr><td><strong><code>INT</code> / <code>UINT</code> / <code>DWORD</code> / <code>LONG</code> / <code>ULONG</code></strong></td><td>4 bytes</td></tr>
+<tr><td><strong><code>LONG64</code> / <code>ULONG64</code> / <code>DWORD64</code></strong></td><td>8 bytes</td></tr>
+<tr><td><strong>Pointers</strong> (<code>PCHAR</code>, <code>void *</code>, …)</td><td><strong>8 bytes</strong> on <strong>x64</strong>, 4 on x86</td></tr>
+</tbody>
+</table>
+</div>
+<p>To <strong>verify</strong> on your machine, print them once in a scratch <code>main</code>:</p>
+<pre><code class="language-c">printf("sizeof(INT)=%zu, sizeof(DWORD)=%zu, sizeof(void*)=%zu\n",
+    sizeof(INT), sizeof(DWORD), sizeof(void *));
+</code></pre>
+<h3 id="what-if-the-value-does-not-fit"><a class="header" href="#what-if-the-value-does-not-fit">What if the value does not fit?</a></h3>
+<p>Each unsigned integer type can only hold <strong><code>0 .. 2^(8×N) − 1</code></strong> for <strong><code>N</code></strong> bytes. If you <strong>assign</strong> or <strong>compute</strong> a value that is <strong>too large</strong>:</p>
+<ul>
+<li>
+<p><strong>Unsigned</strong> types: the C standard defines <strong>wrapping</strong> (reduction <strong>modulo</strong> <code>2^(8×N)</code>). The value “folds” and you keep only the low bits—silently. Example: putting <strong><code>300</code></strong> into an <strong><code>unsigned char</code></strong> (often 1 byte) does not store 300; it stores <strong><code>300 % 256</code></strong>.</p>
+</li>
+<li>
+<p><strong>Signed</strong> types: <strong>overflow in arithmetic</strong> (e.g. <code>INT_MAX + 1</code> in a pure <code>int</code> expression) is <strong>undefined behavior</strong> in C—you cannot rely on it wrapping like two’s-complement hardware might. Compilers may assume it never happens and optimize in surprising ways.</p>
+</li>
+</ul>
+<p><strong>Practical takeaway:</strong> pick a type <strong>wide enough</strong> for the range you need (<code>DWORD</code> vs <code>DWORD64</code>, etc.), check sizes with <strong><code>sizeof</code></strong> when writing to buffers, and be careful mixing <strong>signed</strong> and <strong>unsigned</strong> in expressions (see the next section).</p>
+<hr>
+<h2 id="signed-vs-unsignedand-mixing-them"><a class="header" href="#signed-vs-unsignedand-mixing-them">Signed vs unsigned—and mixing them</a></h2>
+<p><strong>Signed</strong> types can represent negative numbers; <strong>unsigned</strong> types treat the same storage as <strong>non-negative</strong> only. If you <strong>assign</strong> or <strong>arithmetic-mix</strong> signed and unsigned values, C’s <strong>usual arithmetic conversions</strong> can <strong>widen</strong> or <strong>reinterpret</strong> values in ways that surprise you. Always know which type each variable has before you combine them.</p>
+<p>Here is a small program that <strong>mixes</strong> <code>INT</code> and <code>UINT</code> and then prints the results. An <code>INT</code> is pushed past its maximum positive value by adding a <code>UINT</code>, and a <code>UINT</code> is decremented:</p>
 <pre><code class="language-c">INT mix = 0x7FFFFFFF;
 UINT match = 1U;
 mix += match;
@@ -237,67 +365,57 @@ match -= 2;
 printf("mix:   (hex)[0x%x] (signed)[%i] (unsigned)[%u] \n", mix, mix, mix);
 printf("match: (hex)[0x%x] (signed)[%i] (unsigned)[%u] \n", match, match, match);
 </code></pre>
-<p>The <strong>same bits</strong> are printed three ways: <code>%x</code> / <code>%i</code> / <code>%u</code> interpret the value differently. This is why choosing the <strong>right type</strong> (<code>INT</code>, <code>UINT</code>, <code>DWORD</code>, …) and the <strong>matching format</strong> matters.</p>
-<h2 id="main-arithmetic-and-bit-shifts"><a class="header" href="#main-arithmetic-and-bit-shifts"><code>main</code>, arithmetic, and bit shifts</a></h2>
-<p><strong><code>lab1</code></strong> expects you to write <code>main</code> with:</p>
+<p>The <strong>same bits</strong> in a variable can be printed three ways: <strong><code>%x</code></strong> (hex), <strong><code>%i</code></strong> (signed decimal), <strong><code>%u</code></strong> (unsigned decimal). The <strong>format specifier</strong> tells <code>printf</code> how to <strong>interpret</strong> the value you pass—not the other way around. Passing the wrong combination of type and format is undefined behavior or misleading output. That is why choosing the <strong>right type</strong> (<code>INT</code>, <code>UINT</code>, <code>DWORD</code>, …) and the <strong>matching format</strong> matters.</p>
+<hr>
+<h2 id="more-arithmetic-compound-assignment-and-bit-shifts"><a class="header" href="#more-arithmetic-compound-assignment-and-bit-shifts">More arithmetic: compound assignment and bit shifts</a></h2>
+<p>Extend <strong><code>main</code></strong> with:</p>
 <ul>
-<li>Variables of types like <strong><code>INT</code></strong>, <strong><code>UINT</code></strong>, <strong><code>DWORD</code></strong> with given initial values (including hex constants and expressions like <code>1 &lt;&lt; 12</code>).</li>
-<li><strong><code>printf</code></strong> lines with correct specifiers for hex vs decimal.</li>
-<li>Compound assignment, e.g. updating an <code>INT</code> with a <code>UINT</code>.</li>
+<li>More variables of types like <strong><code>INT</code></strong>, <strong><code>UINT</code></strong>, <strong><code>DWORD</code></strong> with given initial values (including hex constants and expressions like <code>1 &lt;&lt; 12</code>).</li>
+<li>Additional <strong><code>printf</code></strong> lines with correct specifiers for hex vs decimal.</li>
+<li><strong>Compound assignment</strong>, e.g. updating an <code>INT</code> with a <code>UINT</code> (<code>mix += something</code>).</li>
 </ul>
-<p>Bit shift example (from the starter comments in <code>lab1</code>):</p>
+<p>Bit shift examples:</p>
 <pre><code class="language-c">DWORD forty96 = 1 &lt;&lt; 12;  /* 4096 */
 DWORD ten24   = 1 &lt;&lt; 10;  /* 1024 */
 </code></pre>
-<h2 id="format-string-cheat-sheet-notesh"><a class="header" href="#format-string-cheat-sheet-notesh">Format string cheat sheet (<code>notes.h</code>)</a></h2>
-<p><strong><code>Intro/notes.h</code></strong> documents common <code>printf</code> types and size prefixes (<code>%d</code>, <code>%u</code>, <code>%x</code>, <code>%I32</code>, <code>%I64</code>, <code>%ll</code>, etc.). Keep that header open while you work on <strong><code>lab1</code></strong>.</p>
+<h2 id="printf-format-cheat-sheet-msvc--windows"><a class="header" href="#printf-format-cheat-sheet-msvc--windows"><code>printf</code> format cheat sheet (MSVC / Windows)</a></h2>
+<p>Use this table while you choose specifiers (see also <a href="https://learn.microsoft.com/en-us/cpp/c-runtime-library/format-specification-syntax-printf-and-wprintf-functions">Microsoft <code>printf</code> format specification</a>)):</p>
+<pre><code class="language-c">/*
+ * Common conversions:
+ *   %d or %i   signed decimal
+ *   %u         unsigned decimal
+ *   %o         unsigned octal
+ *   %x / %X    unsigned hex (lower/upper)
+ *
+ * Size / width hints (examples):
+ *   %lld       long long
+ *   %I32d      32-bit int (MSVC)
+ *   %I64d      64-bit int (MSVC)
+ *   %zu        size_t (C99; use for strlen result, etc.)
+ */
+</code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
 <p>If output looks wrong, check <strong>both</strong> the <strong>variable type</strong> and the <strong>format specifier</strong>. Mismatches (e.g. printing a <code>DWORD</code> with the wrong size or signedness) cause confusing output or undefined behavior.</p>
 </blockquote>
-<p><strong>Projects:</strong> <code>IntroToC/Intro</code>, <code>IntroToC/lab1</code>.</p>
-<div style="break-before: page; page-break-before: always;"></div>
-<h1 id="strings-strlen-and-memory-helpers"><a class="header" href="#strings-strlen-and-memory-helpers">Strings, <code>strlen</code>, and memory helpers</a></h1>
-<p>This chapter follows <strong><code>IntroToC/Part2</code></strong>: C strings, <code>string.h</code>, and a few macros used throughout the course.</p>
-<h2 id="strlen-vs-sizeof"><a class="header" href="#strlen-vs-sizeof"><code>strlen</code> vs <code>sizeof</code></a></h2>
-<ul>
-<li><strong><code>strlen</code></strong> counts characters <strong>until</strong> the null terminator; it does <strong>not</strong> include <code>'\0'</code>.</li>
-<li><strong><code>sizeof</code></strong> on a fixed array includes the <strong>whole array</strong>, including the null byte if the initializer provided one.</li>
-</ul>
-<p>From <strong><code>Part2/main.c</code></strong>:</p>
-<pre><code class="language-c">CHAR bad[10] = {0};
-SIZE_T badLen = strlen(bad);   /* 0 */
-
-memcpy(bad, "bad", strlen("bad") + 1);  /* copy includes '\0' */
-</code></pre>
-<p>Truncating a string in place:</p>
-<pre><code class="language-c">CHAR cmd[] = "cmd.exe";
-cmd[3] = '\0';   /* now prints as "cmd" */
-</code></pre>
-<h2 id="array-vs-pointer-to-string-literal"><a class="header" href="#array-vs-pointer-to-string-literal">Array vs pointer to string literal</a></h2>
-<pre><code class="language-c">CHAR cmd[] = "cmd.exe";      /* array; sizeof(cmd) is size of array */
-CHAR* command = "cmd.exe";   /* pointer; sizeof(command) is pointer size */
-</code></pre>
-<h2 id="strcmp-and-atoi"><a class="header" href="#strcmp-and-atoi"><code>strcmp</code> and <code>atoi</code></a></h2>
-<p><code>strcmp</code> returns <strong>0</strong> when strings are equal. The project prints comparisons with a ternary for readability:</p>
-<pre><code class="language-c">printf("is k32 == kbase? -&gt; %i : %s \n", strcmp(k32, kbase),
-    strcmp(k32, kbase) == 0 ? "yes" : "no");
-</code></pre>
-<p><code>atoi</code> converts a decimal string to <code>int</code> (use with care in production; no strong error reporting).</p>
-<h2 id="macros-flags-and-page-constants"><a class="header" href="#macros-flags-and-page-constants">Macros: flags and page constants</a></h2>
-<p><strong><code>Part2</code></strong> defines macros such as <code>FlagOn</code>, <code>SetFlag</code>, <code>ClearFlag</code>, and constants like <code>PAGE_EXECUTE_READ</code>. You will see the same <strong>flag-testing</strong> style again when working with PE characteristics and file attributes in later parts.</p>
-<p><strong>Project:</strong> <code>IntroToC/Part2</code>.</p>
+<h2 id="implement"><a class="header" href="#implement">Implement</a></h2>
+<ol>
+<li>In <strong>your Classroom template</strong>, ensure <strong><code>main</code></strong> has the correct <strong>signature</strong> and <strong>body</strong> for a console CRT app, then add the <strong>numeric variables</strong>, the <strong>signed/unsigned</strong> demo, and any <strong>bit-shift</strong> / <strong><code>printf</code></strong> work your rubric requires.</li>
+<li><strong>Build</strong> (correct platform: usually <strong>x64</strong> for later chapters, but this chapter may work in either—follow your template).</li>
+<li>Run and verify the printed hex/signed/unsigned lines match your expectations.</li>
+<li><strong>Commit</strong> and <strong>push</strong> when this chapter’s goals are met.</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="pointers-and-addresses"><a class="header" href="#pointers-and-addresses">Pointers and addresses</a></h1>
-<p>This chapter matches <strong><code>IntroToC/Part3</code></strong>: taking addresses, dereferencing, pointer sizes, and how pointer arithmetic depends on the <strong>pointed-to type</strong>.</p>
+<p>This chapter covers taking addresses, dereferencing, pointer sizes, and how pointer arithmetic depends on the <strong>pointed-to type</strong>. It ends with <strong>parallel arrays</strong> of names and function pointers—a simplified picture of an <strong>export table</strong>.</p>
 <h2 id="address-of-and-dereference"><a class="header" href="#address-of-and-dereference">Address-of and dereference</a></h2>
 <pre><code class="language-c">ULONG ulCourse = 670UL;
 PULONG pCourse = &amp;ulCourse;
 
-printf("1-address of ulCourse 0x%p \n", &amp;ulCourse);
-printf("2-address of ulCourse 0x%p \n", pCourse);
-printf("3-address of pCourse 0x%p \n", &amp;pCourse);
-printf("4-dereference pCourse 0x%08x \n", *pCourse);
+printf("1-address of ulCourse 0x%p \n", (void*)&amp;ulCourse);
+printf("2-address of ulCourse 0x%p \n", (void*)pCourse);
+printf("3-address of pCourse 0x%p \n", (void*)&amp;pCourse);
+printf("4-dereference pCourse 0x%08lx \n", (unsigned long)*pCourse);
 
 *pCourse = 665;
 </code></pre>
@@ -310,13 +428,13 @@ printf("what they point to is NOT always the same size : %zu, %zu, %zu, %zu \n",
 </code></pre>
 <p>On a given platform, <strong>all data pointers</strong> are typically the same width (e.g. 8 bytes on x64), but <strong><code>sizeof(*p)</code></strong> depends on the type <code>p</code> points to.</p>
 <h2 id="pointer-arithmetic-and-char-vs-word-vs-ulong"><a class="header" href="#pointer-arithmetic-and-char-vs-word-vs-ulong">Pointer arithmetic and <code>CHAR</code> vs <code>WORD</code> vs <code>ULONG</code></a></h2>
-<p>The same underlying bytes (a string <code>"yoda"</code>) are walked with different pointer types; <strong>incrementing</strong> advances by <code>sizeof(*p)</code>:</p>
+<p>The same underlying bytes (e.g. a string <code>"yoda"</code>) can be walked with different pointer types; <strong>incrementing</strong> advances by <code>sizeof(*p)</code>:</p>
 <ul>
 <li><code>PCHAR</code> / <code>LPSTR</code>: +1 byte</li>
 <li><code>PWORD</code>: +2 bytes</li>
 <li><code>PULONG</code>: +4 bytes</li>
 </ul>
-<p>Then a simple loop walks a C string byte-by-byte:</p>
+<p>Then walk a C string byte-by-byte:</p>
 <pre><code class="language-c">PCHAR p = jediMaster;
 while ('\0' != *p)
 {
@@ -326,54 +444,81 @@ while ('\0' != *p)
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p>Casting a <code>PCHAR</code> to <code>PULONG</code> or <code>PWORD</code> and then incrementing is <strong>unsafe</strong> unless you know the buffer is large enough and aligned for that access. The lab uses it to illustrate <strong>sizes and arithmetic</strong>, not as a pattern for production string code.</p>
+<p>Casting a <code>PCHAR</code> to <code>PULONG</code> or <code>PWORD</code> and then incrementing is <strong>unsafe</strong> unless you know the buffer is large enough and aligned for that access. This exercise illustrates <strong>sizes and arithmetic</strong>, not production string code.</p>
 </blockquote>
 <h2 id="parallel-arrays-names-and-function-pointers"><a class="header" href="#parallel-arrays-names-and-function-pointers">Parallel arrays (names and function pointers)</a></h2>
-<p><strong><code>Part3</code></strong> ends with arrays of names and <code>PVOID</code> function pointers, then searches by name with <code>strcmp</code>—a simplified picture of how an <strong>export table</strong> pairs names with addresses.</p>
-<p><strong>Project:</strong> <code>IntroToC/Part3</code>.</p>
+<p>Finish with arrays of <strong>names</strong> and <strong><code>PVOID</code></strong> (or typed) <strong>function pointers</strong>, then find an index with <strong><code>strcmp</code></strong>—the same logical shape as <strong>names / ordinals / functions</strong> in a PE export directory.</p>
+<pre><code class="language-c">/* Example shape only—adjust types and count for your rubric */
+#define COUNTOF_NAMES 4
+PCHAR AddressOfNames[COUNTOF_NAMES] = { "MyA", "MyB", "MyC", "MyD" };
+PVOID AddressOfFunctions[COUNTOF_NAMES] = { /* &amp;MyA, &amp;MyB, ... */ };
+
+for (ULONG i = 0UL; i &lt; COUNTOF_NAMES; i++)
+{
+    if (0 == strcmp("MyC", AddressOfNames[i]))
+    {
+        printf("found at index %lu @ %p \n", i, AddressOfFunctions[i]);
+    }
+}
+</code></pre>
+<h2 id="implement-1"><a class="header" href="#implement-1">Implement</a></h2>
+<ol>
+<li>In <strong>your template</strong>, implement the pointer demos, the <strong>unsafe</strong> multi-type walk only if your rubric requires it, and the <strong>parallel-array</strong> lookup with real stub functions.</li>
+<li><strong>Build</strong> and run.</li>
+<li><strong>Commit</strong> and <strong>push</strong>.</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="structs-unicode_string-and-doubly-linked-lists"><a class="header" href="#structs-unicode_string-and-doubly-linked-lists">Structs, <code>UNICODE_STRING</code>, and doubly linked lists</a></h1>
-<p>This chapter follows <strong><code>IntroToC/Part4</code></strong>: defining Windows-style structs, using designated initializers, allocating from the process heap, and linking nodes with <strong><code>LIST_ENTRY</code></strong>.</p>
-<h2 id="struct-types-in-this-lab"><a class="header" href="#struct-types-in-this-lab">Struct types in this lab</a></h2>
-<p><strong><code>Part4/main.c</code></strong> defines (or typedefs) shapes similar to kernel patterns:</p>
+<p>This chapter covers Windows-style <strong>structs</strong>, <strong>designated initializers</strong>, allocation from the <strong>process heap</strong>, and linking records with <strong><code>LIST_ENTRY</code></strong> (doubly linked list), the same abstraction the loader uses for modules.</p>
+<h2 id="struct-types-to-model"><a class="header" href="#struct-types-to-model">Struct types to model</a></h2>
+<p>Define types similar to kernel patterns (names may vary; match your rubric):</p>
 <ul>
 <li><strong><code>UNICODE_STRING</code></strong> — <code>Length</code>, <code>MaximumLength</code>, <code>Buffer</code>.</li>
-<li><strong><code>STRING_EX</code></strong> — narrow or wide buffer depending on <code>UNICODE</code>.</li>
-<li><strong><code>PROCESS_INFO_EX</code></strong> — example process record embedding a <strong><code>LIST_ENTRY</code></strong> (<code>ProcessInfoLinks</code>) and a <strong><code>UNICODE_STRING</code> name</strong>.</li>
+<li><strong><code>STRING_EX</code></strong> (optional) — narrow or wide buffer depending on whether you compile with <strong><code>UNICODE</code></strong>.</li>
+<li>A record (e.g. <strong><code>PROCESS_INFO_EX</code></strong>) that embeds a <strong><code>LIST_ENTRY</code></strong> (e.g. <code>ProcessInfoLinks</code>) plus a module or process <strong>name</strong>.</li>
 </ul>
 <h2 id="initializing-structs"><a class="header" href="#initializing-structs">Initializing structs</a></h2>
-<p>Examples include zeroing with <code>{ 0 }</code>, <code>RtlSecureZeroMemory</code>, designated initializers in C:</p>
-<pre><code class="language-c">STRING_EX Name4 = { .Buffer = s, .MaximumLength = sizeof(s), .Length = sizeof(s) - sizeof((s)[0]) };
+<p>Examples:</p>
+<pre><code class="language-c">STRING_EX Name2 = { 0 };
+RtlSecureZeroMemory(&amp;Name3, sizeof(STRING_EX));
+
+STRING_EX Name4 = { .Buffer = s, .MaximumLength = sizeof(s), .Length = sizeof(s) - sizeof((s)[0]) };
 </code></pre>
-<p>and the <code>RTL_CONSTANT_STRING</code>-style macro for string literals.</p>
+<p>Use an <strong><code>RTL_CONSTANT_STRING</code>-style macro</strong> for string literals if your instructor provides or asks you to write one.</p>
 <h2 id="heap-allocation-and-list-operations"><a class="header" href="#heap-allocation-and-list-operations">Heap allocation and list operations</a></h2>
-<p>The lab allocates a <strong><code>LIST_ENTRY</code></strong> head with <strong><code>HeapAlloc</code></strong> / <strong><code>GetProcessHeap</code></strong>, checks for failure, then:</p>
+<p>Allocate a <strong>list head</strong> with <strong><code>HeapAlloc</code></strong> / <strong><code>GetProcessHeap</code></strong>, check for <strong><code>NULL</code></strong>, then:</p>
 <pre><code class="language-c">InitializeListHead(TempHeadList);
 bIsEmpty = IsListEmpty(TempHeadList);
 </code></pre>
-<p>A <strong><code>PROCESS_INFO_EX</code></strong> is allocated, partially filled (including a <strong><code>UNICODE_STRING</code></strong> built with <code>RTL_CONSTANT_STRING</code>), and inserted:</p>
+<p>Allocate a <strong>node struct</strong>, fill fields (including a <strong><code>UNICODE_STRING</code></strong> from <code>RTL_CONSTANT_STRING</code> or manual setup), then insert:</p>
 <pre><code class="language-c">InsertTailList(TempHeadList, &amp;(pProcInfo-&gt;ProcessInfoLinks));
 </code></pre>
-<h2 id="listhelpersh"><a class="header" href="#listhelpersh"><code>ListHelpers.h</code></a></h2>
-<p><strong><code>Part4/ListHelpers.h</code></strong> provides <strong><code>InitializeListHead</code></strong>, <strong><code>IsListEmpty</code></strong>, <strong><code>InsertTailList</code></strong>, <strong><code>RemoveEntryList</code></strong>, etc.—the same logical operations used by the Windows loader’s module lists (you will walk those lists in later parts).</p>
+<h2 id="list-helper-routines"><a class="header" href="#list-helper-routines">List helper routines</a></h2>
+<p>You need <strong><code>InitializeListHead</code></strong>, <strong><code>IsListEmpty</code></strong>, <strong><code>InsertTailList</code></strong>, <strong><code>RemoveEntryList</code></strong>, and related routines—the same operations the Windows loader uses for module lists. Your <strong>template</strong> may already ship <strong><code>ListHelpers.h</code></strong>; if not, implement these <strong>FORCEINLINE</strong>-style functions in your own header (match the classic doubly linked list algorithms).</p>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p><strong><code>DumpStruct</code></strong> in the project uses a <code>printf</code> format that depends on your CRT/SDK setup (<code>%wZ</code>-style extension). If your build warns or fails, compare your toolset documentation or temporarily print <code>Buffer</code> manually while learning the list mechanics.</p>
+<p>Printing a <strong><code>UNICODE_STRING</code></strong> with <strong><code>printf</code></strong> may require a vendor-specific format (e.g. <code>%wZ</code>) or manual loops over <strong><code>Buffer</code></strong>. If your build complains, print <strong><code>Length</code></strong> / <strong><code>Buffer</code></strong> in a simple loop for debugging.</p>
 </blockquote>
-<p><strong>Project:</strong> <code>IntroToC/Part4</code>.</p>
+<h2 id="implement-2"><a class="header" href="#implement-2">Implement</a></h2>
+<ol>
+<li>Add the <strong>struct</strong> definitions and <strong>list helpers</strong> to headers/sources in <strong>your template</strong>.</li>
+<li>In <strong><code>main</code></strong>, allocate head + at least one node, <strong>insert</strong>, and verify <strong><code>IsListEmpty</code></strong> toggles as expected.</li>
+<li><strong>Build</strong>, run, <strong>commit</strong>, and <strong>push</strong>.</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="the-peb-loader-data-and-module-lists"><a class="header" href="#the-peb-loader-data-and-module-lists">The PEB, loader data, and module lists</a></h1>
-<p>This chapter follows <strong><code>IntroToC/Part5</code></strong>: reading the <strong>TEB/PEB</strong> on <strong>x64</strong>, reaching <strong><code>PEB-&gt;Ldr</code></strong>, and walking <strong><code>InMemoryOrderModuleList</code></strong> with <strong><code>CONTAINING_RECORD</code></strong>.</p>
+<p>This chapter covers reading the <strong>TEB/PEB</strong> on <strong>x64</strong>, reaching <strong><code>PEB-&gt;Ldr</code></strong>, and walking <strong><code>InMemoryOrderModuleList</code></strong> with <strong><code>CONTAINING_RECORD</code></strong>.</p>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p>This project <strong>requires x64</strong>. It uses <strong><code>__readgsqword(FIELD_OFFSET(TEB, ProcessEnvironmentBlock))</code></strong> and <code>#error</code>s on x86 builds. Always select an <strong>x64</strong> configuration in Visual Studio.</p>
+<p>This topic <strong>requires x64</strong>. Use <strong><code>__readgsqword(FIELD_OFFSET(TEB, ProcessEnvironmentBlock))</code></strong> and reject <strong>x86</strong> builds with <code>#error</code> if your rubric says so. Always select an <strong>x64</strong> configuration in Visual Studio.</p>
 </blockquote>
 <h2 id="get-a-pointer-to-the-peb"><a class="header" href="#get-a-pointer-to-the-peb">Get a pointer to the PEB</a></h2>
 <pre><code class="language-c">PPEB PebPtr = (PPEB)__readgsqword(FIELD_OFFSET(TEB, ProcessEnvironmentBlock));
 PPEB_LDR_DATA LdrDataPtr = (PPEB_LDR_DATA)PebPtr-&gt;Ldr;
 </code></pre>
+<p>You will need <strong><code>winternl.h</code></strong> / <strong><code>ntddk.h</code>-style</strong> types your template exposes (<code>TEB</code>, <code>PEB</code>, <code>PEB_LDR_DATA</code>, <code>LDR_DATA_TABLE_ENTRY</code>, etc.)—often via a single <strong>NT headers</strong> include your instructor supplies.</p>
 <h2 id="walk-inmemoryordermodulelist"><a class="header" href="#walk-inmemoryordermodulelist">Walk <code>InMemoryOrderModuleList</code></a></h2>
-<p>The list is circular; you stop when <strong><code>CurrentModule == HeadList</code></strong>:</p>
+<p>The list is circular; stop when <strong><code>CurrentModule == HeadList</code></strong>:</p>
 <pre><code class="language-c">PLIST_ENTRY HeadList = &amp;(LdrDataPtr-&gt;InMemoryOrderModuleList);
 PLIST_ENTRY CurrentModule = HeadList-&gt;Flink;
 
@@ -381,120 +526,168 @@ while (CurrentModule != HeadList)
 {
     PLDR_DATA_TABLE_ENTRY LdrDataEntry =
         CONTAINING_RECORD(CurrentModule, LDR_DATA_TABLE_ENTRY, InMemoryOrderLinks);
-    /* use LdrDataEntry-&gt;BaseDllName, DllBase, BaseNameHashValue, ... */
+    /* e.g. wprintf(L"%wZ @ %p\n", LdrDataEntry-&gt;BaseDllName, LdrDataEntry-&gt;DllBase); */
     CurrentModule = CurrentModule-&gt;Flink;
 }
 </code></pre>
-<p><code>CONTAINING_RECORD</code> converts a pointer to an embedded <strong><code>LIST_ENTRY</code></strong> into a pointer to the <strong>containing</strong> structure.</p>
-<h2 id="hash-link-table-helpersc"><a class="header" href="#hash-link-table-helpersc">Hash link table (<code>Helpers.c</code>)</a></h2>
-<p><strong><code>Part5/Helpers.c</code></strong> adds hashing helpers (<code>LdrpHashUnicodeString</code>, <code>LdrHashEntry</code>) and <strong><code>ObtainHashTable</code></strong>, which takes the <strong>loader lock</strong>, scans <strong>initialization-order</strong> module entries, and derives a pointer to the loader’s hash bucket array. This is advanced material; treat it as an optional deep dive after you are comfortable with the basic list walk in <strong><code>main.c</code></strong>.</p>
+<p><code>CONTAINING_RECORD</code> converts a pointer to an embedded <strong><code>LIST_ENTRY</code></strong> into a pointer to the <strong>containing</strong> <strong><code>LDR_DATA_TABLE_ENTRY</code></strong>.</p>
+<h2 id="optional-hashing-and-the-loader-hash-table"><a class="header" href="#optional-hashing-and-the-loader-hash-table">Optional: hashing and the loader hash table</a></h2>
+<p>Advanced follow-on (if assigned): implement <strong><code>LdrpHashUnicodeString</code>-style</strong> hashing, <strong><code>LdrHashEntry</code></strong>, and logic that takes the <strong>loader lock</strong>, walks <strong>initialization-order</strong> modules, and locates the <strong>hash bucket</strong> array. Treat this as a second milestone after the basic <strong>InMemoryOrder</strong> walk works.</p>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
-<p>When you touch loader structures in real tools, assume <strong>other threads</strong> can mutate the loader data. The sample uses <strong><code>EnterCriticalSection</code> / <code>LeaveCriticalSection</code></strong> around some paths—understand <strong>why</strong> before copying patterns into your own code.</p>
+<p>Loader data can change under you—other threads load DLLs. Any serious walk should use <strong><code>LoaderLock</code></strong> (<strong><code>EnterCriticalSection</code> / <code>LeaveCriticalSection</code></strong>) the way your rubric describes.</p>
 </blockquote>
-<p><strong>Project:</strong> <code>IntroToC/Part5</code>.</p>
+<h2 id="implement-3"><a class="header" href="#implement-3">Implement</a></h2>
+<ol>
+<li>In <strong>your template</strong>, implement <strong>PEB → Ldr → InMemoryOrder</strong> walk and print each module’s <strong>base</strong> and <strong>name</strong> (as your instructor specifies).</li>
+<li>Add the <strong>optional</strong> hash-table exploration only if assigned.</li>
+<li><strong>Build x64</strong>, run, <strong>commit</strong>, and <strong>push</strong>.</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="locating-modules-by-name-or-hash-and-reading-pe-headers"><a class="header" href="#locating-modules-by-name-or-hash-and-reading-pe-headers">Locating modules by name or hash and reading PE headers</a></h1>
-<p>This chapter centers on <strong><code>IntroToC/Part6</code></strong> (and the closely related <strong><code>Part7</code></strong>, which exercises the same APIs). The goal is to find a loaded module’s base address from the <strong>PEB module list</strong>, then interpret <strong>PE</strong> structures in memory.</p>
-<h2 id="findsystemmodule-parameters"><a class="header" href="#findsystemmodule-parameters"><code>FindSystemModule</code> parameters</a></h2>
-<p><strong><code>FindSystemModule</code></strong> accepts optional <strong><code>UNICODE_STRING</code></strong> and/or <strong><code>ULONG</code> hash</strong> pointers:</p>
+<p>This chapter covers finding a loaded module’s <strong>base address</strong> from the <strong>PEB module list</strong>, then parsing <strong>PE</strong> structures in memory (DOS header, NT headers, optional header, export directory).</p>
+<h2 id="findsystemmodule-style-api"><a class="header" href="#findsystemmodule-style-api"><code>FindSystemModule</code>-style API</a></h2>
+<p>Design a function (name it as your rubric says) that accepts optional <strong><code>UNICODE_STRING*</code></strong> and/or <strong><code>ULONG*</code></strong> hash:</p>
 <ul>
-<li>If <strong>name is NULL</strong>, a <strong>hash must</strong> be supplied (<code>ERROR_INVALID_PARAMETER</code> otherwise).</li>
-<li>The implementation sets <strong><code>bHashOnly</code></strong> and calls <strong><code>GetModuleBase</code></strong>.</li>
+<li>If <strong>name is NULL</strong>, a <strong>hash must</strong> be supplied; otherwise return <strong><code>ERROR_INVALID_PARAMETER</code></strong> (or equivalent).</li>
+<li>Set an internal <strong><code>bHashOnly</code></strong> flag and call into <strong><code>GetModuleBase</code></strong>.</li>
 </ul>
 <h2 id="getmodulebase-and-the-loader-lock"><a class="header" href="#getmodulebase-and-the-loader-lock"><code>GetModuleBase</code> and the loader lock</a></h2>
-<p><strong><code>GetModuleBase</code></strong>:</p>
+<p><strong><code>GetModuleBase</code></strong> should:</p>
 <ol>
-<li>Calls <strong><code>GetPebPtr</code></strong> (via <code>__readgsqword</code> / TEB) to get the PEB.</li>
+<li>Resolve the <strong>PEB</strong> (e.g. <strong><code>GetPebPtr</code></strong> using <code>__readgsqword</code> / TEB).</li>
 <li><strong><code>EnterCriticalSection(PebPtr-&gt;LoaderLock)</code></strong> before reading loader lists.</li>
-<li>Walks <strong><code>InMemoryOrderModuleList</code></strong>, comparing either:
+<li>Walk <strong><code>InMemoryOrderModuleList</code></strong>, comparing either:
 <ul>
 <li><strong><code>BaseNameHashValue</code></strong> to the supplied hash (<code>RtlCompareMemory</code>), or</li>
-<li><strong><code>_wcsicmp</code></strong> on full buffer strings when matching by name.</li>
+<li><strong><code>_wcsicmp</code></strong> on wide name buffers when matching by name.</li>
 </ul>
 </li>
-<li><strong><code>LeaveCriticalSection</code></strong> when done.</li>
+<li><strong><code>LeaveCriticalSection</code></strong> on <strong>every</strong> path.</li>
 </ol>
 <blockquote class="blockquote-tag blockquote-tag-important">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
-<p>Always release the loader lock on <strong>all</strong> exit paths. If you add early <code>return</code>s while debugging, ensure you don’t accidentally skip <strong><code>LeaveCriticalSection</code></strong>—that can <strong>deadlock</strong> the process.</p>
+<p>Always release the loader lock on <strong>all</strong> exit paths. Early <strong><code>return</code>s</strong> during debugging must not skip <strong><code>LeaveCriticalSection</code></strong> or you can <strong>deadlock</strong> the process.</p>
 </blockquote>
 <h2 id="pe-parsing-overview-in-memory"><a class="header" href="#pe-parsing-overview-in-memory">PE parsing overview (in-memory)</a></h2>
-<p>After a base address is found, the code:</p>
+<p>After you have <strong><code>ModuleBase</code></strong>:</p>
 <ul>
-<li>Validates <strong><code>IMAGE_DOS_SIGNATURE</code></strong> at the base (<strong>DOS header</strong>).</li>
-<li>Uses <strong><code>e_lfanew</code></strong> to locate the <strong>NT headers</strong>.</li>
-<li>Reads the <strong>file header</strong> and <strong>optional header</strong> (32 vs 64 depends on <strong>machine</strong> type).</li>
-<li>Locates the <strong>export directory</strong> via <strong><code>IMAGE_DIRECTORY_ENTRY_EXPORT</code></strong> and <strong><code>RVA2VA</code></strong> style macros.</li>
+<li>Validate <strong><code>IMAGE_DOS_SIGNATURE</code></strong> at the base (<strong>DOS header</strong>).</li>
+<li>Use <strong><code>e_lfanew</code></strong> to locate the <strong>NT headers</strong>.</li>
+<li>Read the <strong>file header</strong> and <strong>optional header</strong> (32 vs 64 depends on <strong>Machine</strong>).</li>
+<li>Locate the <strong>export directory</strong> via <strong><code>IMAGE_DIRECTORY_ENTRY_EXPORT</code></strong> and convert <strong>RVAs</strong> to <strong>VAs</strong> with a macro such as:</li>
 </ul>
-<p><strong><code>DumpExports</code></strong>, <strong><code>DumpDosHeader</code></strong>, <strong><code>DumpFileHeader</code></strong>, etc., print pieces of this structure. Linking <strong><code>imagehlp.lib</code></strong> and including <strong>ImageHlp</strong> supports helpers like <strong><code>ImageRvaToVa</code></strong> / symbol utilities where used.</p>
-<h2 id="part6-vs-part7"><a class="header" href="#part6-vs-part7">Part6 vs Part7</a></h2>
-<p><strong><code>Part7</code></strong> largely repeats the <strong><code>FindSystemModule</code></strong> / hash workflow with small variations—use it to confirm you understand the flow without treating the two as different topics.</p>
-<p><strong>Projects:</strong> <code>IntroToC/Part6</code>, <code>IntroToC/Part7</code>.</p>
+<pre><code class="language-c">#define RVA2VA(Type, Base, Rva) ((Type)((DWORD_PTR)(Base) + (DWORD_PTR)(Rva)))
+</code></pre>
+<p>Add <strong><code>DumpDosHeader</code></strong>, <strong><code>DumpFileHeader</code></strong>, <strong><code>DumpExports</code></strong> (or similar) as separate functions that print fields you care about. Link <strong><code>imagehlp.lib</code></strong> if you use <strong>ImageHlp</strong> helpers (<strong><code>ImageRvaToVa</code></strong>, etc.).</p>
+<h2 id="second-pass-optional-reinforcement"><a class="header" href="#second-pass-optional-reinforcement">Second pass (optional reinforcement)</a></h2>
+<p>If your course assigns a <strong>second milestone</strong> with the same APIs (e.g. hash-only lookup vs name lookup), treat it as <strong>practice</strong>—same lock rules, same PE steps—rather than a different codebase.</p>
+<h2 id="implement-4"><a class="header" href="#implement-4">Implement</a></h2>
+<ol>
+<li>Implement <strong>lookup by name</strong> and/or <strong>by hash</strong> per rubric.</li>
+<li>Parse and print <strong>DOS</strong> + <strong>file</strong> headers (and <strong>exports</strong> if required).</li>
+<li><strong>Build x64</strong>, test against a known module (e.g. <code>KERNELBASE.dll</code>), <strong>commit</strong>, and <strong>push</strong>.</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="threads-heap-args-and-directory-enumeration"><a class="header" href="#threads-heap-args-and-directory-enumeration">Threads, heap args, and directory enumeration</a></h1>
-<p>This chapter follows <strong><code>IntroToC/Part8</code></strong>: passing a structure to a worker thread, and enumerating files with <strong><code>FindFirstFile</code></strong> / <strong><code>FindNextFile</code></strong>.</p>
+<p>This chapter covers passing a <strong>structure</strong> to a worker thread with <strong><code>CreateThread</code></strong>, and enumerating files with <strong><code>FindFirstFileA</code></strong> / <strong><code>FindNextFileA</code></strong> / <strong><code>FindClose</code></strong>.</p>
 <h2 id="passing-a-parameter-to-createthread"><a class="header" href="#passing-a-parameter-to-createthread">Passing a parameter to <code>CreateThread</code></a></h2>
-<p><strong><code>Part8/main.c</code></strong> allocates a <strong><code>ARGS</code></strong> structure on the <strong>process heap</strong>, fills a path/pattern (here <code>C:\Users\*</code>), and starts <strong><code>DirSearch</code></strong> in a new thread:</p>
-<pre><code class="language-c">PARGS pArgs = HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof(ARGS));
-memcpy(pArgs-&gt;fileName, "C:\\Users\\*", strlen("C:\\Users\\*"));
+<p>Allocate a struct (e.g. <strong><code>ARGS</code></strong>) on the <strong>heap</strong>, fill fields such as a search pattern, pass the pointer as <strong><code>lpParameter</code></strong>, then wait and clean up:</p>
+<pre><code class="language-c">typedef struct _ARGS {
+    CHAR fileName[MAX_PATH];
+} ARGS, *PARGS;
 
-hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)DirSearch, pArgs, 0, NULL);
+PARGS pArgs = HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof(ARGS));
+if (!pArgs)
+    return GetLastError();
+
+memcpy(pArgs-&gt;fileName, "C:\\Users\\*", strlen("C:\\Users\\*") + 1);
+
+HANDLE hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)DirSearch, pArgs, 0, NULL);
+if (!hThread) {
+    HeapFree(GetProcessHeap(), 0, pArgs);
+    return GetLastError();
+}
+
+WaitForSingleObject(hThread, INFINITE);
+CloseHandle(hThread);
+HeapFree(GetProcessHeap(), 0, pArgs);
 </code></pre>
-<p>Then it waits, closes the handle, and frees the heap block.</p>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p>Casting <strong><code>DirSearch</code></strong> to <strong><code>LPTHREAD_START_ROUTINE</code></strong> only works if the function signature is compatible (return type and calling convention). Mismatches here cause <strong>stack corruption</strong> or subtle bugs.</p>
+<p>Casting <strong><code>DirSearch</code></strong> to <strong><code>LPTHREAD_START_ROUTINE</code></strong> only works if <strong><code>DirSearch</code></strong> uses the correct <strong>return type</strong> and <strong>calling convention</strong> (<code>DWORD WINAPI ThreadProc(LPVOID)</code>). Mismatches cause <strong>stack corruption</strong>.</p>
 </blockquote>
-<h2 id="dirsearch-and-win32_find_dataa"><a class="header" href="#dirsearch-and-win32_find_dataa"><code>DirSearch</code> and <code>WIN32_FIND_DATAA</code></a></h2>
-<p><strong><code>Part8/dirutils.c</code></strong>:</p>
+<h2 id="thread-procedure-findfirstfile-loop"><a class="header" href="#thread-procedure-findfirstfile-loop">Thread procedure: <code>FindFirstFile</code> loop</a></h2>
+<p>Inside <strong><code>DirSearch</code></strong> (or your name):</p>
 <ul>
-<li>Calls <strong><code>FindFirstFileA</code></strong>; on failure returns <strong><code>GetLastError()</code></strong>.</li>
-<li>Loops with <strong><code>FindNextFileA</code></strong> until done; <strong><code>FindClose</code></strong> releases the search handle.</li>
-<li>Uses <strong><code>FileTimeToSystemTime</code></strong> on <strong><code>ftCreationTime</code></strong>.</li>
-<li>Combines <strong><code>nFileSizeHigh</code></strong> / <strong><code>nFileSizeLow</code></strong> into a 64-bit size via <strong><code>LARGE_INTEGER</code></strong>.</li>
-<li>Skips <strong><code>.</code></strong> and <strong><code>..</code></strong>, and branches on <strong><code>FILE_ATTRIBUTE_DIRECTORY</code></strong>.</li>
+<li>If <strong><code>lpParam</code></strong> is non-NULL, read <strong><code>((PARGS)lpParam)-&gt;fileName</code></strong> (or use a default pattern).</li>
+<li><strong><code>FindFirstFileA</code></strong> → check <strong><code>INVALID_HANDLE_VALUE</code></strong> → <strong><code>GetLastError</code></strong> on failure.</li>
+<li><strong><code>do</code> … <code>while (FindNextFileA(...))</code></strong>.</li>
+<li><strong><code>FileTimeToSystemTime</code></strong> for display.</li>
+<li>Combine <strong><code>nFileSizeHigh</code></strong> / <strong><code>nFileSizeLow</code></strong> with <strong><code>LARGE_INTEGER</code></strong> for 64-bit size.</li>
+<li>Skip <strong><code>.</code></strong> and <strong><code>..</code></strong>; branch on <strong><code>FILE_ATTRIBUTE_DIRECTORY</code></strong>.</li>
+<li><strong><code>FindClose</code></strong> before return.</li>
 </ul>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>The hard-coded path <strong><code>C:\*</code></strong> in <strong><code>dirutils.c</code></strong> is a teaching default. On your machine you may change it to a folder you are allowed to scan.</p>
+<p>Pick a directory you are <strong>allowed</strong> to scan. <strong><code>C:\*</code></strong> or <strong><code>C:\Users\*</code></strong> are teaching examples only.</p>
 </blockquote>
-<p><strong>Project:</strong> <code>IntroToC/Part8</code>.</p>
+<h2 id="implement-5"><a class="header" href="#implement-5">Implement</a></h2>
+<ol>
+<li>Define <strong><code>ARGS</code></strong> (or use the template’s typedef), implement <strong><code>DirSearch</code></strong> in its own <strong><code>.c</code></strong> file if your rubric splits modules.</li>
+<li><strong><code>CreateThread</code></strong> from <strong><code>main</code></strong>, wait, free heap.</li>
+<li><strong>Build</strong>, run, <strong>commit</strong>, and <strong>push</strong>.</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="http-with-wininet"><a class="header" href="#http-with-wininet">HTTP with WinINet</a></h1>
-<p>This chapter follows <strong><code>IntroToC/Part9</code></strong>: a minimal <strong>HTTP GET</strong> using <strong>WinINet</strong> (<code>wininet.dll</code>), with error text from <strong><code>FormatMessageW</code></strong>.</p>
+<p>This chapter covers a minimal <strong>HTTP GET</strong> using <strong>WinINet</strong> (<code>wininet.dll</code>), plus readable errors via <strong><code>FormatMessageW</code></strong> pulling messages from <strong><code>wininet.dll</code></strong>.</p>
+<p>Link <strong><code>Wininet.lib</code></strong> and include <strong><code>Wininet.h</code></strong>.</p>
 <h2 id="flow-in-main"><a class="header" href="#flow-in-main">Flow in <code>main</code></a></h2>
+<p>Typical sequence:</p>
 <ol>
-<li><strong><code>InitSession</code></strong> — <code>InternetOpenA</code> with a browser-like user agent and <strong><code>INTERNET_OPEN_TYPE_PRECONFIG</code></strong> (respects system proxy settings).</li>
-<li><strong><code>MakeRequest</code></strong> — <code>InternetConnectA</code> + <code>HttpOpenRequestA</code> (see <strong><code>HttpApis.c</code></strong> for full sequence).</li>
-<li><strong><code>SendRequest</code></strong> — sends the request; on failure <strong><code>CheckLastInetError</code></strong> prints a message.</li>
-<li><strong><code>ProcessResults</code></strong> — reads the response (implementation in <strong><code>HttpApis.c</code></strong>).</li>
-<li><strong><code>CloseSession</code></strong> — <code>InternetCloseHandle</code>.</li>
+<li><strong><code>InitSession</code></strong> — <code>InternetOpenA</code> with a user agent and <strong><code>INTERNET_OPEN_TYPE_PRECONFIG</code></strong>.</li>
+<li><strong><code>MakeRequest</code></strong> — <code>InternetConnectA</code>, then <code>HttpOpenRequestA</code> (and related) to obtain an <strong><code>HINTERNET</code></strong> request handle.</li>
+<li><strong><code>SendRequest</code></strong> — send headers/body; on failure, call your error helper.</li>
+<li><strong><code>ProcessResults</code></strong> — <code>InternetReadFile</code> (or similar) in a loop until done.</li>
+<li><strong><code>CloseSession</code></strong> — <code>InternetCloseHandle</code> for each open handle (request, connection, session).</li>
 </ol>
+<p>Split these across <strong><code>.c</code></strong> files in <strong>your template</strong> (<code>HttpApis.c</code>, <code>Errors.c</code>, etc.) if your rubric asks for separation—<strong>the book describes the pattern</strong>; your repo holds the actual file names.</p>
 <h2 id="formatting-wininet-errors"><a class="header" href="#formatting-wininet-errors">Formatting WinINet errors</a></h2>
-<p><strong><code>Part9/Errors.c</code></strong> uses <strong><code>FormatMessageW</code></strong> with <strong><code>FORMAT_MESSAGE_FROM_HMODULE</code></strong> and <strong><code>GetModuleHandleW(L"wininet.dll")</code></strong> so error codes map to human-readable strings:</p>
-<pre><code class="language-c">FormatMessageW(
-    FORMAT_MESSAGE_FROM_HMODULE,
-    GetModuleHandleW(L"wininet.dll"),
-    dwLastErr,
-    0UL,
-    szFormatBuffer,
-    BUFFER_SIZE,
-    NULL
-);
+<pre><code class="language-c">#define BUFFER_SIZE 1024
+
+void CheckLastInetError(LPCWSTR message, DWORD dwLastErr)
+{
+    WCHAR buf[BUFFER_SIZE];
+    DWORD n = FormatMessageW(
+        FORMAT_MESSAGE_FROM_HMODULE,
+        GetModuleHandleW(L"wininet.dll"),
+        dwLastErr,
+        0UL,
+        buf,
+        BUFFER_SIZE,
+        NULL
+    );
+    if (n)
+        wprintf(L"%s: %s", message, buf);
+}
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
-<p>Always distinguish <strong>Win32 errors</strong> (<code>GetLastError</code> after some APIs) from <strong>HRESULT</strong>-style returns. WinINet commonly sets extended error info; your debugger and <code>FormatMessage</code> are your friends.</p>
+<p>Distinguish <strong>Win32</strong> errors from <strong><code>InternetError</code></strong> / extended WinINet codes your debugger shows—always thread <strong><code>GetLastError</code></strong> (or the API’s documented error path) into <strong><code>FormatMessage</code></strong> with the right module when possible.</p>
 </blockquote>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>The sample targets <strong><code>127.0.0.1:8080</code></strong>. You need a listening HTTP server on that port, or change <strong><code>theTarget</code></strong> / <strong><code>thePort</code></strong> to match your lab environment.</p>
+<p>Samples often target <strong><code>127.0.0.1:8080</code></strong>. Run a local listener or change <strong>host</strong> / <strong>port</strong> to match your lab.</p>
 </blockquote>
-<p><strong>Project:</strong> <code>IntroToC/Part9</code>.</p>
+<h2 id="implement-6"><a class="header" href="#implement-6">Implement</a></h2>
+<ol>
+<li>Add <strong>WinINet</strong> session/connect/request/send/read/close in <strong>your template</strong>.</li>
+<li>Wire <strong><code>CheckLastInetError</code></strong> (or equivalent) for failed steps.</li>
+<li><strong>Build</strong>, test against a real or mock server, <strong>commit</strong>, and <strong>push</strong>.</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="unicode-vs-ansi-builds"><a class="header" href="#unicode-vs-ansi-builds">Unicode vs ANSI builds</a></h1>
-<p>This short chapter matches <strong><code>IntroToC/Part11</code></strong>: how the <strong><code>UNICODE</code></strong> / <strong><code>_UNICODE</code></strong> macros change which <strong><code>printf</code></strong> family you use.</p>
+<p>This short chapter explains how <strong><code>UNICODE</code></strong> / <strong><code>_UNICODE</code></strong> affect which <strong><code>printf</code></strong> family you use—and how easy it is to mix wide and narrow APIs by mistake.</p>
 <h2 id="one-macro-two-personalities"><a class="header" href="#one-macro-two-personalities">One macro, two personalities</a></h2>
 <pre><code class="language-c">#ifdef _UNICODE
 #define print wprintf
@@ -502,59 +695,78 @@ hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)DirSearch, pArgs, 0, NUL
 #define print printf
 #endif
 
-int main()
+int main(void)
 {
-    print(L"this is a cool \n");
+    print(L"this is a cool \n");  /* BUG if _UNICODE is not defined: printf + wide literal */
     return 0;
 }
 </code></pre>
-<p>When <strong><code>_UNICODE</code></strong> is defined, <strong><code>print</code></strong> becomes <strong><code>wprintf</code></strong> and the wide literal <strong><code>L"..."</code></strong> is consistent. When it is <strong>not</strong> defined, <strong><code>print</code></strong> is <strong><code>printf</code></strong>, but the <strong><code>L</code> prefix</strong> on the string is still a <strong>wide</strong> string—so the narrow and wide worlds are accidentally mixed in this stub.</p>
+<p>When <strong><code>_UNICODE</code></strong> is defined, <strong><code>print</code></strong> becomes <strong><code>wprintf</code></strong> and the wide literal <strong><code>L"..."</code></strong> is consistent. When it is <strong>not</strong> defined, <strong><code>print</code></strong> is <strong><code>printf</code></strong> but the string is still <strong>wide</strong>—that is a <strong>bug</strong>.</p>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p><strong>Do not mix</strong> wide string literals with <strong><code>printf</code></strong>, or narrow literals with <strong><code>wprintf</code></strong>, without explicit conversion. Enable <strong><code>UNICODE</code></strong> consistently in your project settings and includes, or standardize on <strong><code>printf</code> + UTF-8</strong> / <strong><code>wprintf</code> + wide</strong> deliberately.</p>
+<p><strong>Do not mix</strong> wide string literals with <strong><code>printf</code></strong>, or narrow literals with <strong><code>wprintf</code></strong>, without explicit conversion. Pick <strong>one</strong> story for your template: <strong>A</strong> narrow (<code>CHAR</code>, <code>printf</code>, <code>*A</code> APIs) or <strong>B</strong> wide (<code>wchar_t</code>, <code>wprintf</code>, <code>*W</code> APIs, <code>UNICODE_STRING</code>).</p>
 </blockquote>
-<h2 id="why-this-matters-in-the-course"><a class="header" href="#why-this-matters-in-the-course">Why this matters in the course</a></h2>
-<p>Earlier parts use <strong><code>CHAR</code></strong>, <strong><code>printf</code></strong>, <strong><code>FindFirstFileA</code></strong>, and wide APIs like <strong><code>wprintf</code></strong> / <strong><code>UNICODE_STRING</code></strong> side by side for teaching. For your own code, pick a strategy:</p>
-<ul>
-<li><strong>A (ANSI / UTF-8 narrow):</strong> <code>char</code>, <code>printf</code>, <code>CreateFileA</code>, etc.</li>
-<li><strong>B (Unicode wide):</strong> <code>wchar_t</code>, <code>wprintf</code>, <code>CreateFileW</code>, <code>UNICODE_STRING</code>, etc.</li>
-</ul>
-<p><strong>Project:</strong> <code>IntroToC/Part11</code>.</p>
+<h2 id="why-this-matters"><a class="header" href="#why-this-matters">Why this matters</a></h2>
+<p>Later topics use <strong><code>CHAR</code></strong> and <strong><code>FindFirstFileA</code></strong> alongside <strong><code>UNICODE_STRING</code></strong> and wide system types. Your <strong>project properties</strong> and <strong><code>#ifdef UNICODE</code></strong> blocks should match—avoid “half Unicode” builds.</p>
+<h2 id="implement-7"><a class="header" href="#implement-7">Implement</a></h2>
+<ol>
+<li>Align <strong>your template</strong> with your instructor’s required configuration (ANSI vs Unicode).</li>
+<li>Fix or remove any <strong><code>print</code></strong> macro that mixes families incorrectly.</li>
+<li><strong>Build</strong>, verify, <strong>commit</strong>, and <strong>push</strong>.</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="simd-intrinsics-hashing-and-low-level-extras"><a class="header" href="#simd-intrinsics-hashing-and-low-level-extras">SIMD intrinsics, hashing, and low-level extras</a></h1>
-<p>This chapter ties together <strong><code>Part10-TheEnd</code></strong>, <strong><code>IntrinsicXOR</code></strong>, and <strong><code>FreeEXE</code></strong>—all <strong>optional</strong> and <strong>more advanced</strong> than the core 1–9 track.</p>
+<p>This chapter is <strong>optional</strong> and <strong>more advanced</strong> than the core track. Topics include <strong>SSE-style</strong> hashing of wide strings, <strong>SIMD XOR</strong> of buffers, and (if assigned) <strong>shellcode</strong> or <strong>raw bytes</strong> embedded in C—only in environments your instructor authorizes.</p>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p>These examples use <strong>SSE/AVX intrinsics</strong> (<code>immintrin.h</code>, <code>emmintrin.h</code>, etc.). You need a CPU and compiler flags that support the instruction set you use, and you must understand <strong>alignment and aliasing</strong> before copying patterns into security-sensitive code.</p>
+<p>These examples use <strong>SSE/AVX intrinsics</strong> (<code>immintrin.h</code>, <code>emmintrin.h</code>, etc.). You need CPU + compiler support for the instruction set you use, and you must understand <strong>alignment</strong> and <strong>strict aliasing</strong> before using intrinsics in real code.</p>
 </blockquote>
-<h2 id="part10-theend-xor-fold-hash-with-sse"><a class="header" href="#part10-theend-xor-fold-hash-with-sse"><code>Part10-TheEnd</code>: XOR-fold hash with SSE</a></h2>
-<p><strong><code>IntrinsichHasher</code></strong> loads 8 wide characters at a time into <strong><code>__m128i</code></strong>, XORs into an accumulator, then folds the 128-bit state into a <strong><code>DWORD</code></strong>. Remaining characters are XOR’d in a scalar loop. <strong><code>start</code></strong> builds a <strong><code>UNICODE_STRING</code></strong> for <strong><code>KERNELBASE.dll</code></strong> from a <strong>wide character array</strong> (not a single literal) to illustrate byte-level control.</p>
-<p><strong>Project:</strong> <code>IntroToC/Part10-TheEnd</code>.</p>
-<h2 id="intrinsicxor-encrypting-a-buffer-in-16-byte-blocks"><a class="header" href="#intrinsicxor-encrypting-a-buffer-in-16-byte-blocks"><code>IntrinsicXOR</code>: encrypting a buffer in 16-byte blocks</a></h2>
-<p><strong><code>IntrinsicXOR/main.c</code></strong> allocates a buffer, XORs <strong><code>PlainText</code></strong> against a 16-byte key using <strong><code>_mm_loadu_si128</code></strong> / <strong><code>_mm_xor_si128</code></strong>, and prints hex bytes—useful for seeing how intrinsics map to <strong><code>xmm</code></strong> registers in a debugger.</p>
-<p><strong>Project:</strong> <code>IntroToC/IntrinsicXOR</code>.</p>
-<h2 id="freeexe-shellcode-as-a-byte-array"><a class="header" href="#freeexe-shellcode-as-a-byte-array"><code>FreeEXE</code>: shellcode as a byte array</a></h2>
-<p><strong><code>FreeEXE/main.c</code></strong> contains large <strong><code>unsigned char hexData[...]</code></strong> arrays (and comments) representing extracted machine code—<strong>PEB walking</strong> and hashing at a very low level. Treat this as <strong>reference / lab support</strong>, not as a template for arbitrary networked programs.</p>
+<h2 id="xor-fold-hash-with-sse-wide-string"><a class="header" href="#xor-fold-hash-with-sse-wide-string">XOR-fold hash with SSE (wide string)</a></h2>
+<p>Pattern:</p>
+<ol>
+<li>Initialize <strong><code>__m128i hash</code></strong> to zero.</li>
+<li>For each 8-<strong>WCHAR</strong> chunk (16 bytes), <strong><code>_mm_loadu_si128</code></strong>, <strong><code>_mm_xor_si128</code></strong> into <strong><code>hash</code></strong>.</li>
+<li><strong><code>_mm_storeu_si128</code></strong> to a <strong><code>DWORD[4]</code></strong>, XOR the four lanes into one <strong><code>DWORD</code></strong>.</li>
+<li>XOR remaining <strong><code>WCHAR</code>s</strong> in a scalar loop.</li>
+</ol>
+<p>Build a <strong><code>UNICODE_STRING</code></strong> for a module name using a <strong>wide char array</strong> if you need per-character control (e.g. <code>'K','E',...,'L','L', UNICODE_NULL</code>).</p>
+<h2 id="intrinsicxor-16-byte-blocks"><a class="header" href="#intrinsicxor-16-byte-blocks"><code>IntrinsicXOR</code>: 16-byte blocks</a></h2>
+<p>Load a 16-byte <strong>key</strong> into <strong><code>__m128i</code></strong>. For each full block of plaintext: <strong><code>_mm_loadu_si128</code></strong>, <strong><code>_mm_xor_si128</code></strong>, <strong><code>_mm_storeu_si128</code></strong>. Handle a <strong>tail</strong> smaller than 16 bytes with a byte loop. Print ciphertext as <strong>hex</strong> for debugging.</p>
+<h2 id="shellcode--hexdata-arrays-assigned-only"><a class="header" href="#shellcode--hexdata-arrays-assigned-only">Shellcode / <code>hexData</code> arrays (assigned only)</a></h2>
+<p>Some courses embed <strong>machine code</strong> as <strong>`unsigned char hexData[] = { 0x48, … };</strong> and jump into it or study it in a debugger. That belongs only in <strong>controlled</strong> lab VMs.</p>
 <blockquote class="blockquote-tag blockquote-tag-caution">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Caution</p>
-<p>Running or adapting <strong>shellcode</strong> and <strong>process-memory tricks</strong> can violate policy or law outside a controlled class VM. Only use this material in environments your instructor explicitly authorizes.</p>
+<p>Running or adapting <strong>shellcode</strong> and low-level <strong>process memory</strong> tricks can violate policy or law outside an authorized class environment. Follow your instructor’s rules only.</p>
 </blockquote>
-<p><strong>Project:</strong> <code>IntroToC/FreeEXE</code>.</p>
-<h2 id="part10-stub"><a class="header" href="#part10-stub"><code>Part10</code> stub</a></h2>
-<p><strong><code>Part10/main.c</code></strong> currently defines a trivial <strong><code>boo</code></strong> function—placeholder for future extension. <strong><code>Needle/main.c</code></strong> is mostly commented <strong>010 Editor</strong> hex dumps; skim if your course points you there.</p>
-<p><strong>Projects:</strong> <code>IntroToC/Part10</code>, <code>IntroToC/Needle</code>.</p>
+<h2 id="placeholder-milestones"><a class="header" href="#placeholder-milestones">Placeholder milestones</a></h2>
+<p>If your template includes a stub function (e.g. a single <strong><code>boo()</code></strong>), replace it when the rubric advances—or use it as a scratch entry point for <strong>intrinsic</strong> experiments.</p>
+<h2 id="implement-8"><a class="header" href="#implement-8">Implement</a></h2>
+<ol>
+<li>Only if assigned: add <strong>SIMD</strong> hashing and/or <strong>XOR</strong> demo <strong><code>.c</code></strong> files to <strong>your template</strong>, enable required <strong>compiler intrinsics</strong> flags.</li>
+<li><strong>Build</strong>, run under a debugger if asked, <strong>commit</strong>, and <strong>push</strong>.</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="crt-free-dll-crt-dll"><a class="header" href="#crt-free-dll-crt-dll">CRT-free DLL (<code>CRT-DLL</code>)</a></h1>
-<p><strong><code>IntroToC/CRT-DLL/dllmain.c</code></strong> (and related headers) explores a <strong>DLL</strong> that avoids the C runtime for certain operations and walks <strong><code>InMemoryOrderModuleList</code></strong> similarly to earlier parts—comparing a hash produced by an <strong>intrinsic-style hasher</strong> to locate a module.</p>
+<h1 id="crt-free-dll-optional"><a class="header" href="#crt-free-dll-optional">CRT-free DLL (optional)</a></h1>
+<p>Some courses end with a <strong>DLL</strong> that minimizes or avoids the <strong>C runtime</strong>, walks <strong><code>InMemoryOrderModuleList</code></strong>, and compares <strong>hashes</strong>—similar ideas to earlier chapters but with <strong><code>DllMain</code></strong> constraints.</p>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>This project is <strong>supplementary</strong>. Building DLLs involves <strong>exports</strong>, <strong>entry points</strong> (<code>DllMain</code>), loader lock re-entrancy rules, and linking <strong>without</strong> the CRT—topics your instructor may cover separately.</p>
+<p>This is <strong>supplementary</strong>. Building DLLs involves <strong>exports</strong>, <strong><code>DllMain</code></strong>, loader <strong>lock re-entrancy</strong>, and special <strong>linker</strong> settings. Follow your instructor’s template and checklist.</p>
 </blockquote>
 <blockquote class="blockquote-tag blockquote-tag-warning">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
-<p>Holding the <strong>loader lock</strong> from <strong><code>DllMain</code></strong> while calling APIs that load other DLLs can <strong>deadlock</strong>. Do not merge PEB-walking samples blindly into production <code>DllMain</code> code.</p>
+<p>Calling <strong>LoadLibrary</strong>-style APIs from <strong><code>DllMain</code></strong> while holding the <strong>loader lock</strong> can <strong>deadlock</strong>. Do not copy PEB-walking samples into <strong><code>DllMain</code></strong> without understanding <strong>what</strong> your init path calls.</p>
 </blockquote>
-<p><strong>Project:</strong> <code>IntroToC/CRT-DLL</code>.</p>
+<h2 id="what-to-implement-if-assigned"><a class="header" href="#what-to-implement-if-assigned">What to implement (if assigned)</a></h2>
+<ul>
+<li>A <strong><code>DllMain</code></strong> that does minimal work (or defers heavy work per instructor guidance).</li>
+<li>Optional export <strong><code>boo</code></strong> or similar that performs <strong>module enumeration</strong> / <strong>hash</strong> match <strong>outside</strong> dangerous lock contexts.</li>
+<li>Linker settings and <strong>CRT</strong> avoidance exactly as the <strong>Classroom boilerplate</strong> specifies.</li>
+</ul>
+<h2 id="implement-9"><a class="header" href="#implement-9">Implement</a></h2>
+<ol>
+<li>Use <strong>only</strong> the <strong>DLL project</strong> and settings from <strong>your Classroom template</strong>.</li>
+<li><strong>Build</strong> the DLL, load/test per rubric, <strong>commit</strong>, and <strong>push</strong>.</li>
+</ol>
 
                     </main>
 

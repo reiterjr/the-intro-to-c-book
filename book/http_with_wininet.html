@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>HTTP with WinINet - Intro to C</title>
+        <title>Can you C the Internet - Intro to C</title>
 
 
         <!-- Custom HTML head -->
@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-54dc45ff.js";
+            window.path_to_searchindex_js = "searchindex-c60e4496.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-0150a509.js"></script>
+        <script src="toc-632dde0e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,36 +175,51 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="http-with-wininet"><a class="header" href="#http-with-wininet">HTTP with WinINet</a></h1>
-<p>This chapter follows <strong><code>IntroToC/Part9</code></strong>: a minimal <strong>HTTP GET</strong> using <strong>WinINet</strong> (<code>wininet.dll</code>), with error text from <strong><code>FormatMessageW</code></strong>.</p>
+<p>This chapter covers a minimal <strong>HTTP GET</strong> using <strong>WinINet</strong> (<code>wininet.dll</code>), plus readable errors via <strong><code>FormatMessageW</code></strong> pulling messages from <strong><code>wininet.dll</code></strong>.</p>
+<p>Link <strong><code>Wininet.lib</code></strong> and include <strong><code>Wininet.h</code></strong>.</p>
 <h2 id="flow-in-main"><a class="header" href="#flow-in-main">Flow in <code>main</code></a></h2>
+<p>Typical sequence:</p>
 <ol>
-<li><strong><code>InitSession</code></strong> — <code>InternetOpenA</code> with a browser-like user agent and <strong><code>INTERNET_OPEN_TYPE_PRECONFIG</code></strong> (respects system proxy settings).</li>
-<li><strong><code>MakeRequest</code></strong> — <code>InternetConnectA</code> + <code>HttpOpenRequestA</code> (see <strong><code>HttpApis.c</code></strong> for full sequence).</li>
-<li><strong><code>SendRequest</code></strong> — sends the request; on failure <strong><code>CheckLastInetError</code></strong> prints a message.</li>
-<li><strong><code>ProcessResults</code></strong> — reads the response (implementation in <strong><code>HttpApis.c</code></strong>).</li>
-<li><strong><code>CloseSession</code></strong> — <code>InternetCloseHandle</code>.</li>
+<li><strong><code>InitSession</code></strong> — <code>InternetOpenA</code> with a user agent and <strong><code>INTERNET_OPEN_TYPE_PRECONFIG</code></strong>.</li>
+<li><strong><code>MakeRequest</code></strong> — <code>InternetConnectA</code>, then <code>HttpOpenRequestA</code> (and related) to obtain an <strong><code>HINTERNET</code></strong> request handle.</li>
+<li><strong><code>SendRequest</code></strong> — send headers/body; on failure, call your error helper.</li>
+<li><strong><code>ProcessResults</code></strong> — <code>InternetReadFile</code> (or similar) in a loop until done.</li>
+<li><strong><code>CloseSession</code></strong> — <code>InternetCloseHandle</code> for each open handle (request, connection, session).</li>
 </ol>
+<p>Split these across <strong><code>.c</code></strong> files in <strong>your template</strong> (<code>HttpApis.c</code>, <code>Errors.c</code>, etc.) if your rubric asks for separation—<strong>the book describes the pattern</strong>; your repo holds the actual file names.</p>
 <h2 id="formatting-wininet-errors"><a class="header" href="#formatting-wininet-errors">Formatting WinINet errors</a></h2>
-<p><strong><code>Part9/Errors.c</code></strong> uses <strong><code>FormatMessageW</code></strong> with <strong><code>FORMAT_MESSAGE_FROM_HMODULE</code></strong> and <strong><code>GetModuleHandleW(L"wininet.dll")</code></strong> so error codes map to human-readable strings:</p>
-<pre><code class="language-c">FormatMessageW(
-    FORMAT_MESSAGE_FROM_HMODULE,
-    GetModuleHandleW(L"wininet.dll"),
-    dwLastErr,
-    0UL,
-    szFormatBuffer,
-    BUFFER_SIZE,
-    NULL
-);
+<pre><code class="language-c">#define BUFFER_SIZE 1024
+
+void CheckLastInetError(LPCWSTR message, DWORD dwLastErr)
+{
+    WCHAR buf[BUFFER_SIZE];
+    DWORD n = FormatMessageW(
+        FORMAT_MESSAGE_FROM_HMODULE,
+        GetModuleHandleW(L"wininet.dll"),
+        dwLastErr,
+        0UL,
+        buf,
+        BUFFER_SIZE,
+        NULL
+    );
+    if (n)
+        wprintf(L"%s: %s", message, buf);
+}
 </code></pre>
 <blockquote class="blockquote-tag blockquote-tag-tip">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
-<p>Always distinguish <strong>Win32 errors</strong> (<code>GetLastError</code> after some APIs) from <strong>HRESULT</strong>-style returns. WinINet commonly sets extended error info; your debugger and <code>FormatMessage</code> are your friends.</p>
+<p>Distinguish <strong>Win32</strong> errors from <strong><code>InternetError</code></strong> / extended WinINet codes your debugger shows—always thread <strong><code>GetLastError</code></strong> (or the API’s documented error path) into <strong><code>FormatMessage</code></strong> with the right module when possible.</p>
 </blockquote>
 <blockquote class="blockquote-tag blockquote-tag-note">
 <p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>The sample targets <strong><code>127.0.0.1:8080</code></strong>. You need a listening HTTP server on that port, or change <strong><code>theTarget</code></strong> / <strong><code>thePort</code></strong> to match your lab environment.</p>
+<p>Samples often target <strong><code>127.0.0.1:8080</code></strong>. Run a local listener or change <strong>host</strong> / <strong>port</strong> to match your lab.</p>
 </blockquote>
-<p><strong>Project:</strong> <code>IntroToC/Part9</code>.</p>
+<h2 id="implement"><a class="header" href="#implement">Implement</a></h2>
+<ol>
+<li>Add <strong>WinINet</strong> session/connect/request/send/read/close in <strong>your template</strong>.</li>
+<li>Wire <strong><code>CheckLastInetError</code></strong> (or equivalent) for failed steps.</li>
+<li><strong>Build</strong>, test against a real or mock server, <strong>commit</strong>, and <strong>push</strong>.</li>
+</ol>
 
                     </main>
 
