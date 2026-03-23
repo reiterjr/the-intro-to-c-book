@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - Intro to C</title>
-        <base href="/">
+        <title>Pointers and addresses - Intro to C</title>
 
 
         <!-- Custom HTML head -->
@@ -175,14 +174,61 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="pointers-and-addresses"><a class="header" href="#pointers-and-addresses">Pointers and addresses</a></h1>
+<p>This chapter matches <strong><code>IntroToC/Part3</code></strong>: taking addresses, dereferencing, pointer sizes, and how pointer arithmetic depends on the <strong>pointed-to type</strong>.</p>
+<h2 id="address-of-and-dereference"><a class="header" href="#address-of-and-dereference">Address-of and dereference</a></h2>
+<pre><code class="language-c">ULONG ulCourse = 670UL;
+PULONG pCourse = &amp;ulCourse;
+
+printf("1-address of ulCourse 0x%p \n", &amp;ulCourse);
+printf("2-address of ulCourse 0x%p \n", pCourse);
+printf("3-address of pCourse 0x%p \n", &amp;pCourse);
+printf("4-dereference pCourse 0x%08x \n", *pCourse);
+
+*pCourse = 665;
+</code></pre>
+<p><code>pCourse</code> holds the address of <code>ulCourse</code>; <code>*pCourse</code> reads or writes the <code>ULONG</code> at that address.</p>
+<h2 id="pointer-size-vs-pointee-size"><a class="header" href="#pointer-size-vs-pointee-size">Pointer size vs pointee size</a></h2>
+<pre><code class="language-c">printf("pointers, always the same size : %zu, %zu, %zu, %zu \n",
+    sizeof(PCHAR), sizeof(PULONG), sizeof(PWORD), sizeof(LPSTR));
+printf("what they point to is NOT always the same size : %zu, %zu, %zu, %zu \n",
+    sizeof(CHAR), sizeof(ULONG), sizeof(WORD), sizeof(CHAR));
+</code></pre>
+<p>On a given platform, <strong>all data pointers</strong> are typically the same width (e.g. 8 bytes on x64), but <strong><code>sizeof(*p)</code></strong> depends on the type <code>p</code> points to.</p>
+<h2 id="pointer-arithmetic-and-char-vs-word-vs-ulong"><a class="header" href="#pointer-arithmetic-and-char-vs-word-vs-ulong">Pointer arithmetic and <code>CHAR</code> vs <code>WORD</code> vs <code>ULONG</code></a></h2>
+<p>The same underlying bytes (a string <code>"yoda"</code>) are walked with different pointer types; <strong>incrementing</strong> advances by <code>sizeof(*p)</code>:</p>
+<ul>
+<li><code>PCHAR</code> / <code>LPSTR</code>: +1 byte</li>
+<li><code>PWORD</code>: +2 bytes</li>
+<li><code>PULONG</code>: +4 bytes</li>
+</ul>
+<p>Then a simple loop walks a C string byte-by-byte:</p>
+<pre><code class="language-c">PCHAR p = jediMaster;
+while ('\0' != *p)
+{
+    printf("char: %c, address : 0x%p \n", *p, (void*)p);
+    p++;
+}
+</code></pre>
+<blockquote class="blockquote-tag blockquote-tag-warning">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p>Casting a <code>PCHAR</code> to <code>PULONG</code> or <code>PWORD</code> and then incrementing is <strong>unsafe</strong> unless you know the buffer is large enough and aligned for that access. The lab uses it to illustrate <strong>sizes and arithmetic</strong>, not as a pattern for production string code.</p>
+</blockquote>
+<h2 id="parallel-arrays-names-and-function-pointers"><a class="header" href="#parallel-arrays-names-and-function-pointers">Parallel arrays (names and function pointers)</a></h2>
+<p><strong><code>Part3</code></strong> ends with arrays of names and <code>PVOID</code> function pointers, then searches by name with <code>strcmp</code>—a simplified picture of how an <strong>export table</strong> pairs names with addresses.</p>
+<p><strong>Project:</strong> <code>IntroToC/Part3</code>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="strings_and_memory.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
+                            <a rel="next prefetch" href="structs_and_linked_lists.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -190,7 +236,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="strings_and_memory.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
+                    <a rel="next prefetch" href="structs_and_linked_lists.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
             </nav>
 
         </div>
